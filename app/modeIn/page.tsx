@@ -2,7 +2,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useKeyboard } from "@/utills/useKeyboard"
 import { useRouter } from "next/navigation"
+import { useReactToPrint } from "react-to-print"
 import Swal from "sweetalert2"
+import Receipt from "@/component/Receipt"
 
 const modeIn = () => {
   const router = useRouter()
@@ -10,6 +12,11 @@ const modeIn = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState<string>("")
   // console.log(inputRef);
+  const receiptRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({
+    contentRef: receiptRef,
+  });
+
   useEffect(() => {
     setAction({
       "Enter": () => submitCarIn(value),
@@ -34,20 +41,30 @@ const modeIn = () => {
     })
 
     const data = await res.json()
-    const { message } = data
-    //console.log(message)
+    const { message, infoCar, infoReceipt } = data
+    // console.log(infoReceipt.id)
+    if (message == 'no-plate') {
+      await Swal.fire({
+        position: "top-end",
+        icon: 'error',
+        title: 'กรุณากรออกเลขทะเบียน',
+      })
+
+    }
     if (message == "Success") {
       await Swal.fire({
-        title: 'success!',
-        text: 'บันทึกข้อมูลแล้ว',
+        title: 'บันทึกข้อมูลแล้ว',
+        text: "id : " + infoCar.id + "  / เลขทะเบียน : " + infoCar.plate_number,
         icon: 'success',
-        timer: 2000,
-        timerProgressBar: true,
-        confirmButtonText: 'ตกลง'
+        showCancelButton: true,
+        confirmButtonText: 'ปริ้นใบเสร็จ',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          handlePrint()
+        }
       })
     }
-
-    router.push("/")
+    //router.push("/")
   }
 
 
@@ -75,6 +92,7 @@ const modeIn = () => {
                 setValue(val)
               }}
               className="w-full h-45 text-center text-8xl font-bold border-4 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-500 transition"
+              required
             />
             <p className="text-2xl text-gray-400 mt-6">
               เวลาเข้า : <input className="text-black font-semibold" value="12:00" readOnly />
@@ -99,6 +117,9 @@ const modeIn = () => {
 
         </div>
 
+      </div>
+      <div className="hiddent">
+        <Receipt ref={receiptRef} />
       </div>
     </div>
   )
