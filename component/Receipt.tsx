@@ -1,7 +1,17 @@
 // components/Receipt.tsx
 import React, { forwardRef } from "react";
 
-const Receipt = forwardRef<HTMLDivElement>((props, ref) => {
+interface PrintDataIn {
+    idParking: string
+    plate_number: string
+    date: string
+    time: string
+    idReceipt: string 
+}
+
+const Receipt = forwardRef<HTMLDivElement , PrintDataIn>((props, ref) => {
+    // console.log(props.in_at);
+    
     return (
         <div ref={ref} className="p-4 text-sm w-[300px] bg-white text-black">
             <h2 className="text-center font-bold text-lg">LANDMARK</h2>
@@ -35,13 +45,13 @@ const Receipt = forwardRef<HTMLDivElement>((props, ref) => {
             <hr className="my-2" />
 
             <div>
-                <p>DATE CAR-IN : 12-03-2026</p>
-                <p>TIME CAR-IN : 17:30:48</p>
-                <p>RECEIPT ID :No. 1</p>
-                <p>LICENSE PLATE NO. 2124</p>
+                <p>DATE CAR-IN : {props.date}</p>
+                <p>TIME CAR-IN : {props.time}</p>
+                <p>RECEIPT ID :No.{props.idReceipt}</p>
+                <p>LICENSE PLATE : NO.{props.plate_number}</p>
             </div>
             <hr className="my-2" />
-            <h1>PARKING ID :No. 20260418155450128</h1>
+            <h1>PARKING ID :No. {props.idParking}</h1>
 
         </div>
     );

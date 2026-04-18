@@ -1,10 +1,18 @@
 'use client'
-import { useEffect, useRef, useState } from "react"
+import { use, useEffect, useRef, useState } from "react"
 import { useKeyboard } from "@/utills/useKeyboard"
 import { useRouter } from "next/navigation"
 import { useReactToPrint } from "react-to-print"
 import Swal from "sweetalert2"
 import Receipt from "@/component/Receipt"
+
+interface PrintDataIn {
+  idParking: string
+  plate_number:string
+  date: string
+  time: string
+  idReceipt: string
+}
 
 const modeIn = () => {
   const router = useRouter()
@@ -16,6 +24,16 @@ const modeIn = () => {
   const handlePrint = useReactToPrint({
     contentRef: receiptRef,
   });
+
+  const [printDataIn, setPrintDataIn] = useState<PrintDataIn>({
+                                                                idParking: "",
+                                                                plate_number:"",
+                                                                date: "",
+                                                                time: "",
+                                                                idReceipt: ""
+                                                              })
+
+
 
   useEffect(() => {
     setAction({
@@ -42,7 +60,10 @@ const modeIn = () => {
 
     const data = await res.json()
     const { message, infoCar, infoReceipt } = data
-    // console.log(infoReceipt.id)
+    // console.log(infoCar.in_at)
+    const date = infoCar.in_at.split('T')[0]
+    const time = infoCar.in_at.split('T')[1].split('.')[0]
+    console.log(date)
     if (message == 'no-plate') {
       await Swal.fire({
         position: "top-end",
@@ -52,6 +73,13 @@ const modeIn = () => {
 
     }
     if (message == "Success") {
+      setPrintDataIn({
+        idParking: infoCar.id,
+        plate_number:infoCar.plate_number ,
+        date: date,
+        time: time,
+        idReceipt:infoReceipt.id
+      })
       await Swal.fire({
         title: 'บันทึกข้อมูลแล้ว',
         text: "id : " + infoCar.id + "  / เลขทะเบียน : " + infoCar.plate_number,
@@ -119,7 +147,14 @@ const modeIn = () => {
 
       </div>
       <div className="hiddent">
-        <Receipt ref={receiptRef} />
+        <Receipt
+          ref={receiptRef}
+          idParking={printDataIn.idParking}
+          plate_number={printDataIn.plate_number}
+          date={printDataIn.date}
+          time={printDataIn.time}
+          idReceipt={printDataIn.idReceipt}
+        />
       </div>
     </div>
   )
