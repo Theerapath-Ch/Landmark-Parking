@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useKeyboard } from "@/utills/useKeyboard"
 import { useRouter } from "next/navigation"
+import Swal from "sweetalert2"
 
 const modeIn = () => {
   const router = useRouter()
@@ -19,9 +20,9 @@ const modeIn = () => {
   }, [value])
 
   //console.log(value);
-  
+
   const submitCarIn = async (val: string) => {
-    
+
     const res = await fetch("/api/carIn", {
       method: "POST",
       headers: {
@@ -33,7 +34,20 @@ const modeIn = () => {
     })
 
     const data = await res.json()
-    console.log(data)
+    const { message } = data
+    //console.log(message)
+    if (message == "Success") {
+      await Swal.fire({
+        title: 'success!',
+        text: 'บันทึกข้อมูลแล้ว',
+        icon: 'success',
+        timer: 2000,
+        timerProgressBar: true,
+        confirmButtonText: 'ตกลง'
+      })
+    }
+
+    router.push("/")
   }
 
 
@@ -48,7 +62,7 @@ const modeIn = () => {
             <p className="text-3xl text-gray-500 mb-4">กรอกเลขทะเบียน</p>
             <input
               inputMode="numeric"
-              type="number"
+              type="text"
               placeholder="----"
               pattern="[0-9]*"
               ref={inputRef}
@@ -63,7 +77,7 @@ const modeIn = () => {
               className="w-full h-45 text-center text-8xl font-bold border-4 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-500 transition"
             />
             <p className="text-2xl text-gray-400 mt-6">
-              เวลาเข้า : <input className="text-black font-semibold" value="12:00" readOnly/>
+              เวลาเข้า : <input className="text-black font-semibold" value="12:00" readOnly />
             </p>
           </div>
         </div>
