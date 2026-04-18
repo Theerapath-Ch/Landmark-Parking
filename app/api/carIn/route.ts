@@ -2,39 +2,46 @@ import { prisma } from "@/lib/prisma"
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    // const prisma = new PrismaClient()
     try {
         const body = await req.json()
+        //console.log(body);
         const { plate_number } = body
-        console.log(body);
+
+        if (plate_number == "" || undefined) {
+            return NextResponse.json({
+                message: "no-plate"
+            })
+        }
 
         const now = new Date()
-        const id = now.toISOString().replace(/[-:.TZ]/g, "")
-        // YYYYMMDDHHMMSSmmm
+        const id = now.toISOString().replace(/[-:.TZ]/g, "") // YYYYMMDDHHMMSSmmm
         console.log(id);
 
-        const car = await prisma.modein.create({
+        const car = await prisma.parking.create({
             data: {
                 id: id,
                 plate_number: plate_number,
-                created_at: now
+                in_at: now
             }
         })
 
-
-
-
-        return NextResponse.json({
-            message: "Success",
-            data: car
-        })
-
+        if (car) {
+            const receipt = await prisma.receipt.create({
+                data: {
+                    parkingId: id
+                }
+            })
+            return NextResponse.json({
+                message: "Success",
+                infoCar: car,
+                infoReceipt : receipt
+            })
+        }
 
     } catch (error) {
         console.log(error);
-        
         return NextResponse.json(
-            { error: "Something went wrong" },
+            { message: "เพิ่มข้อมูลไม่สำเร็จ" },
             { status: 500 }
         )
     }

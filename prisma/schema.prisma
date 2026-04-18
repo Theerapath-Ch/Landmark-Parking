@@ -10,12 +10,22 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
-model modein {
-  id    String     @id 
-  plate_number  String?
-  created_at DateTime @default(now())
+model parking {
+  id           String    @id
+  plate_number String
+  in_at        DateTime  @default(now())
+  out_at       DateTime?
+  receipt      receipt? 
 }
 
+model receipt {
+  id     Int     @id @default(autoincrement())
+  price  Int?
+  status Boolean @default(false)
+
+  parkingId String?  @unique
+  parking   parking @relation(fields: [parkingId], references: [id])
+}
