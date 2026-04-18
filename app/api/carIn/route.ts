@@ -13,7 +13,7 @@ export async function POST(req: Request) {
             })
         }
 
-        const now = new Date()
+        const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
         const id = now.toISOString().replace(/[-:.TZ]/g, "") // YYYYMMDDHHMMSSmmm
         console.log(id);
 
