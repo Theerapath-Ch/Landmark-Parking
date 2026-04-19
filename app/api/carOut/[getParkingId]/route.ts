@@ -28,7 +28,7 @@ export async function GET(_: NextRequest,
       }
       return NextResponse.json({
          success: true,
-         message: data,
+         data: data,
          status: 200
       })
 
