@@ -1,5 +1,5 @@
 'use client'
-import { use, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useKeyboard } from "@/utills/useKeyboard"
 import { useRouter } from "next/navigation"
 import { useReactToPrint } from "react-to-print"
@@ -32,7 +32,7 @@ const modeIn = () => {
     time: "",
     idReceipt: ""
   })
-  
+
   useEffect(() => {
     setAction({
       "Enter": () => submitCarIn(value),
@@ -67,8 +67,8 @@ const modeIn = () => {
         title: 'กรุณากรออกเลขทะเบียน',
       })
     }
-    
-    
+
+
     if (message == "Success") {
       const date = infoCar.in_at.split('T')[0]
       const time = infoCar.in_at.split('T')[1].split('.')[0]
@@ -81,7 +81,7 @@ const modeIn = () => {
       })
       await Swal.fire({
         title: 'บันทึกข้อมูลแล้ว',
-        text: "id : " + infoCar.id + "  / เลขทะเบียน : " + infoCar.plate_number,
+        text: "id : " + infoCar.id + "  / เลขทะเบียน : " + infoCar.plate_number, 
         icon: 'success',
         confirmButtonText: 'ปริ้นใบเสร็จ',
       }).then((result) => {
