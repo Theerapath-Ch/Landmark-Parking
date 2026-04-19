@@ -81,8 +81,11 @@ const modeIn = () => {
       })
       await Swal.fire({
         title: 'บันทึกข้อมูลแล้ว',
-        text: "id : " + infoCar.id + "  / เลขทะเบียน : " + infoCar.plate_number, 
+        text: "id : " + infoCar.id + "  / เลขทะเบียน : " + infoCar.plate_number,
         icon: 'success',
+        allowOutsideClick: false,   
+        allowEscapeKey: false,     
+        showCloseButton: false,
         confirmButtonText: 'ปริ้นใบเสร็จ',
       }).then((result) => {
         if (result.isConfirmed) {
