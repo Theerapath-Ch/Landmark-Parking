@@ -20,9 +20,9 @@ const modeIn = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState<string>("")
   // console.log(inputRef);
-  const receiptRef = useRef<HTMLDivElement>(null);
+  const receiptRefIn = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({
-    contentRef: receiptRef,
+    contentRef: receiptRefIn,
   });
 
   const [printDataIn, setPrintDataIn] = useState<PrintDataIn>({
@@ -144,7 +144,7 @@ const modeIn = () => {
       </div>
       <div className="hidden">
         <Receipt_In
-          ref={receiptRef}
+          ref={receiptRefIn}
           idParking={printDataIn.idParking}
           plate_number={printDataIn.plate_number}
           date={printDataIn.date}
