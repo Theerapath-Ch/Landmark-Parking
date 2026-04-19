@@ -18,7 +18,10 @@ export async function GET(_: NextRequest,
             }
          }
       })
-      // console.log(data);
+      // console.log(data?.in_at);
+      // console.log(data?.out_at);
+
+
 
       if (!data) {
          return NextResponse.json(

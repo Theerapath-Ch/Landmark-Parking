@@ -12,7 +12,7 @@ export async function PUT(req: NextRequest,
             where: { id: putParkingId }
         })
         //console.log(existing);
-        
+
         if (!existing) {
             return NextResponse.json(
                 { success: false, message: 'Not found' },
@@ -23,7 +23,7 @@ export async function PUT(req: NextRequest,
         const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
         //console.log("time : ", now);
 
-        const updated = await prisma.parking.update({
+        const updatedTimeOut = await prisma.parking.update({
             where: {
                 id: putParkingId
             },
@@ -31,11 +31,21 @@ export async function PUT(req: NextRequest,
                 out_at: now
             }
         })
+        await prisma.receipt.update({
+            where: {
+                parkingId: putParkingId
+            },
+            data: {
+                status: true
+            }
+        })
+
+
         //console.log(updated);
-        
+
 
         return NextResponse.json(
-            { success: true, data: updated },
+            { success: true, data: updatedTimeOut },
             { status: 200 }
         )
 
