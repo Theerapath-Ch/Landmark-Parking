@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 
-export async function PUT(req: NextRequest,
+export async function PUT(_: NextRequest,
     { params }: { params: Promise<{ putParkingId: string }> }) {
     try {
         const { putParkingId } = await params
