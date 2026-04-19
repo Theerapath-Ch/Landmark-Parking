@@ -1,17 +1,17 @@
 // components/Receipt.tsx
 import React, { forwardRef } from "react";
+import Barcode from "react-barcode";
 
 interface PrintDataIn {
     idParking: string
     plate_number: string
     date: string
     time: string
-    idReceipt: string 
+    idReceipt: string
 }
 
-const Receipt = forwardRef<HTMLDivElement , PrintDataIn>((props, ref) => {
+const Receipt = forwardRef<HTMLDivElement, PrintDataIn>((props, ref) => {
     // console.log(props.in_at);
-    
     return (
         <div ref={ref} className="p-4 text-sm w-[300px] bg-white text-black">
             <h2 className="text-center font-bold text-lg">LANDMARK</h2>
@@ -45,13 +45,22 @@ const Receipt = forwardRef<HTMLDivElement , PrintDataIn>((props, ref) => {
             <hr className="my-2" />
 
             <div>
+                <h1>PARKING ID :No. {props.idParking}</h1>
                 <p>DATE CAR-IN : {props.date}</p>
                 <p>TIME CAR-IN : {props.time}</p>
                 <p>RECEIPT ID :No.{props.idReceipt}</p>
                 <p>LICENSE PLATE : NO.{props.plate_number}</p>
             </div>
             <hr className="my-2" />
-            <h1>PARKING ID :No. {props.idParking}</h1>
+            {props.idParking && (
+                <Barcode
+                    value={props.idParking}
+                    format='CODE128'
+                    width={1}
+                    height={60}
+                    displayValue={true}
+                />
+            )}
 
         </div>
     );
