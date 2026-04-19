@@ -26,6 +26,6 @@ model receipt {
   price  Int?
   status Boolean @default(false)
 
-  parkingId String?  @unique
+  parkingId String  @unique
   parking   parking @relation(fields: [parkingId], references: [id])
 }
