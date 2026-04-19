@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 
 export async function PUT(req: NextRequest,
-    { params }: { params: { putParkingId: string } }) {
+    { params }: { params: Promise<{ putParkingId: string }> }) {
     try {
         const { putParkingId } = await params
         //console.log(putParkingId);
