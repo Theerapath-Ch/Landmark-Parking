@@ -1,5 +1,5 @@
 // components/Receipt.tsx
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import Barcode from "react-barcode";
 
 interface PrintDataIn {
@@ -10,7 +10,7 @@ interface PrintDataIn {
     idReceipt: string
 }
 
-const Receipt = forwardRef<HTMLDivElement, PrintDataIn>((props, ref) => {
+const Receipt_IN = forwardRef<HTMLDivElement, PrintDataIn>((props, ref) => {
     // console.log(props.in_at);
     return (
         <div ref={ref} className="p-4 text-sm w-[300px] bg-white text-black">
@@ -61,9 +61,8 @@ const Receipt = forwardRef<HTMLDivElement, PrintDataIn>((props, ref) => {
                     displayValue={true}
                 />
             )}
-
         </div>
     );
 });
 
-export default Receipt;
+export default Receipt_IN;

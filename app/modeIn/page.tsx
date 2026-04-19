@@ -4,11 +4,11 @@ import { useKeyboard } from "@/utills/useKeyboard"
 import { useRouter } from "next/navigation"
 import { useReactToPrint } from "react-to-print"
 import Swal from "sweetalert2"
-import Receipt from "@/component/Receipt"
+import Receipt_In from "@/component/ReceiptIn"
 
 interface PrintDataIn {
   idParking: string
-  plate_number:string
+  plate_number: string
   date: string
   time: string
   idReceipt: string
@@ -26,15 +26,13 @@ const modeIn = () => {
   });
 
   const [printDataIn, setPrintDataIn] = useState<PrintDataIn>({
-                                                                idParking: "",
-                                                                plate_number:"",
-                                                                date: "",
-                                                                time: "",
-                                                                idReceipt: ""
-                                                              })
-
-
-
+    idParking: "",
+    plate_number: "",
+    date: "",
+    time: "",
+    idReceipt: ""
+  })
+  
   useEffect(() => {
     setAction({
       "Enter": () => submitCarIn(value),
@@ -61,30 +59,30 @@ const modeIn = () => {
     const data = await res.json()
     const { message, infoCar, infoReceipt } = data
     // console.log(infoCar.in_at)
-    const date = infoCar.in_at.split('T')[0]
-    const time = infoCar.in_at.split('T')[1].split('.')[0]
-    console.log(date)
+
     if (message == 'no-plate') {
       await Swal.fire({
         position: "top-end",
         icon: 'error',
         title: 'กรุณากรออกเลขทะเบียน',
       })
-
     }
+    
+    
     if (message == "Success") {
+      const date = infoCar.in_at.split('T')[0]
+      const time = infoCar.in_at.split('T')[1].split('.')[0]
       setPrintDataIn({
         idParking: infoCar.id,
-        plate_number:infoCar.plate_number ,
+        plate_number: infoCar.plate_number,
         date: date,
         time: time,
-        idReceipt:infoReceipt.id
+        idReceipt: infoReceipt.id
       })
       await Swal.fire({
         title: 'บันทึกข้อมูลแล้ว',
         text: "id : " + infoCar.id + "  / เลขทะเบียน : " + infoCar.plate_number,
         icon: 'success',
-        showCancelButton: true,
         confirmButtonText: 'ปริ้นใบเสร็จ',
       }).then((result) => {
         if (result.isConfirmed) {
@@ -92,7 +90,7 @@ const modeIn = () => {
         }
       })
     }
-    //router.push("/")
+    router.push("/")
   }
 
 
@@ -106,10 +104,8 @@ const modeIn = () => {
           <div>
             <p className="text-3xl text-gray-500 mb-4">กรอกเลขทะเบียน</p>
             <input
-              inputMode="numeric"
               type="text"
               placeholder="----"
-              pattern="[0-9]*"
               ref={inputRef}
               onChange={(e) => {
                 let val = e.target.value.replace(/\D/g, "")
@@ -122,9 +118,9 @@ const modeIn = () => {
               className="w-full h-45 text-center text-8xl font-bold border-4 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-500 transition"
               required
             />
-            <p className="text-2xl text-gray-400 mt-6">
-              เวลาเข้า : <input className="text-black font-semibold" value="12:00" readOnly />
-            </p>
+            {/* <p className="text-2xl text-gray-400 mt-6">
+              เวลาเข้า : <input className="text-black font-semibold" value="" readOnly />
+            </p> */}
           </div>
         </div>
 
@@ -146,8 +142,8 @@ const modeIn = () => {
         </div>
 
       </div>
-      <div className="hiddent">
-        <Receipt
+      <div className="hidden">
+        <Receipt_In
           ref={receiptRef}
           idParking={printDataIn.idParking}
           plate_number={printDataIn.plate_number}
