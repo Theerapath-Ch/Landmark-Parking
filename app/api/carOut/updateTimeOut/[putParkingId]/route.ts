@@ -15,11 +15,18 @@ export async function PUT(req: NextRequest,
         const existing = await prisma.parking.findUnique({
             where: { id: putParkingId }
         })
-        //console.log(existing);
+        //console.log(existing?.id);
 
         if (!existing) {
             return NextResponse.json(
                 { success: false, message: 'ไม่พบข้อมูลใน Barcode' },
+                { status: 404 }
+            )
+        }
+
+        if (existing.out_at != null) {
+            return NextResponse.json(
+                { success: false, message: `ไอดี ${putParkingId} นี้สแกนออกไปแล้ว !` },
                 { status: 404 }
             )
         }
@@ -59,7 +66,8 @@ export async function PUT(req: NextRequest,
             },
             data: {
                 status: true,
-                price: price
+                price: price,
+                discount: discount
             }
         })
 
@@ -70,9 +78,6 @@ export async function PUT(req: NextRequest,
         return NextResponse.json(
             {
                 success: true,
-                // data: updatedTimeOut,
-                // price: price,
-                // discount: discount,
                 status: 200
             }
         )
