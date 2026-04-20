@@ -13,16 +13,13 @@ export async function GET(_: NextRequest,
          include: {
             receipt: {
                select: {
-                  id: true
+                  id: true,
+                  price:true
                }
             }
          }
       })
-      // console.log(data?.in_at);
-      // console.log(data?.out_at);
-
-
-
+      
       if (!data) {
          return NextResponse.json(
             { success: false, message: 'Not found' },
