@@ -14,7 +14,8 @@ interface PrintDataOut {
     time_In: string
     time_Out: string
     idReceipt: string
-    price: string
+    price: number,
+    discount: string
 }
 
 interface ResGet {
@@ -25,7 +26,9 @@ interface ResGet {
         in_at: string
         out_at: string
         receipt: {
-            id: string
+            id: string,
+            price:number,
+            discount:string
         }
     }
 }
@@ -43,86 +46,96 @@ const page = () => {
 
     useEffect(() => {
         setAction({
-            "Enter": () => updateTimeOut(value),
+            "Enter": () => setDisplay(true),
+            "1": () => updateTimeOut(value, "Landmark"),
+            "0": () => updateTimeOut(value, "No-Discount"),
             "/": () => router.push("/")
         })
         inputRef.current?.focus()
+        console.log(value);
+
     }, [value])
 
 
-    const updateTimeOut = async (patkingId: string) => {
+    const updateTimeOut = async (patkingId: string, discount: string | null) => {
 
         const timeOutUpdate = await fetch(`/api/carOut/updateTimeOut/${patkingId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ discount: discount })
         })
         const resUpdate = await timeOutUpdate.json()
-        const { success } = resUpdate
-        if (!success) {
-            Swal.fire({
-                icon: 'error',
-                title: 'ไม่พบข้อมูล',
-            })
-        }
+        console.log(resUpdate);
 
-        setDisplay(true);
+        const { success, message } = resUpdate
+        if (!success) {
+            await Swal.fire({
+                icon: 'error',
+                title: message,
+            })
+            router.push("/")
+        }
 
 
         //console.log("timeOutUpdate :",timeOutUpdate);
-        // let resGet = {} as ResGet
-        // if (timeOutUpdate) {
-        //     const getTimeOut = await fetch(`/api/carOut/${patkingId}`)
-        //     resGet = await getTimeOut.json()
-        // }
-        // //console.log(resGet);
-        // const { data } = resGet
+        let resGet = {} as ResGet
+        if (timeOutUpdate) {
+            const getTimeOut = await fetch(`/api/carOut/${patkingId}`)
+            resGet = await getTimeOut.json()
+        }
+        //console.log(resGet);
+        const { data } = resGet
+        console.log(data);
+        
 
-        // if (success) {
-        //     console.log(data.plate_number);
-        //     const dateIn = data.in_at.split('T')[0]
-        //     const timeIn = data.in_at.split('T')[1].split('.')[0]
-        //     const dateOut = data.out_at.split('T')[1].split('.')[0]
-        //     const timeOut = data.out_at.split('T')[1].split('.')[0]
-        //     console.log(timeIn);
-        //     console.log(timeOut);
+        if (success) {
+            console.log(data.plate_number);
+            const dateIn = data.in_at.split('T')[0]
+            const timeIn = data.in_at.split('T')[1].split('.')[0]
+            const dateOut = data.out_at.split('T')[1].split('.')[0]
+            const timeOut = data.out_at.split('T')[1].split('.')[0]
+            // console.log(timeIn);
+            // console.log(timeOut);
 
-
-        //     const printDataOut: PrintDataOut = {
-        //         idParking: data.id,
-        //         plate_number: data.plate_number,
-        //         date: dateIn,
-        //         time_In: timeIn,
-        //         time_Out: timeOut,
-        //         idReceipt: data.receipt.id,
-        //         price: "20"
-        //     }
-        //     await Swal.fire({
-        //         allowOutsideClick: false,  
-        //         allowEscapeKey: false,  
-        //         showCloseButton: false,
-        //         html: '<div id="receipt-root" style="display:flex; justify-content:center;  width:100%;"></div>',
-        //         confirmButtonText: 'ปริ้นใบเสร็จ',
-        //         didOpen: () => {
-        //             const el = document.getElementById('receipt-root')
-        //             if (el) {
-        //                 createRoot(el).render(<Receipt_Out
-        //                     ref={receiptRefOut}
-        //                     idParking={printDataOut.idParking}
-        //                     plate_number={printDataOut.plate_number}
-        //                     date={printDataOut.date}
-        //                     time_In={printDataOut.time_In}
-        //                     time_Out={printDataOut.time_Out}
-        //                     idReceipt={printDataOut.idReceipt}
-        //                     price={printDataOut.price}
-        //                 />)
-        //             }
-        //         }
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             handlePrint()
-        //         }
-        //     })
-        // }
+            const printDataOut: PrintDataOut = {
+                idParking: data.id,
+                plate_number: data.plate_number,
+                date: dateIn,
+                time_In: timeIn,
+                time_Out: timeOut,
+                idReceipt: data.receipt.id,
+                price: data.receipt.price,
+                discount: data.receipt.discount
+            }
+            await Swal.fire({
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showCloseButton: false,
+                html: '<div id="receipt-root" style="display:flex; justify-content:center;  width:100%;"></div>',
+                confirmButtonText: 'ปริ้นใบเสร็จ',
+                didOpen: () => {
+                    const el = document.getElementById('receipt-root')
+                    if (el) {
+                        createRoot(el).render(<Receipt_Out
+                            ref={receiptRefOut}
+                            idParking={printDataOut.idParking}
+                            plate_number={printDataOut.plate_number}
+                            date={printDataOut.date}
+                            time_In={printDataOut.time_In}
+                            time_Out={printDataOut.time_Out}
+                            idReceipt={printDataOut.idReceipt}
+                            price={printDataOut.price}
+                            discount={printDataOut.discount}
+                        />)
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    handlePrint()
+                    router.push("/")
+                }
+            })
+        }
     }
 
 
@@ -189,11 +202,26 @@ const page = () => {
                                 </div>
 
                                 {/* No Discount */}
-                                <div className="mt-4 bg-red-700 text-white  text-lg py-2 rounded-xl shadow-inner">
-                                    ❌ ไม่มีส่วนลดเพิ่มเติม
+                                <div className="relative bg-gradient-to-r from-red-800 to-red-600 text-white text-xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
+
+                                    {/* Paper texture overlay */}
+                                    <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
+
+                                    {/* Content */}
+                                    <span className="relative z-10 tracking-wide"> ❌ ไม่มีส่วนลด</span>
+
+                                    {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
+                                    <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
+
+                                    {/* Badge */}
+                                    <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-red-700">
+                                        0
+                                    </div>
+
                                 </div>
 
                             </div>
+
 
                         </div>
                     </div>

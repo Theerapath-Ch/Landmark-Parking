@@ -8,7 +8,9 @@ interface PrintDataOut {
     time_In: string
     time_Out: string
     idReceipt: string
-    price: string
+    price: number,
+    discount: string
+
 }
 
 const Receipt_Out = forwardRef<HTMLDivElement , PrintDataOut>((props, ref) => {
@@ -20,16 +22,17 @@ const Receipt_Out = forwardRef<HTMLDivElement , PrintDataOut>((props, ref) => {
             <hr className="my-2" />
 
             <div>
-                <h1>PARKING ID :No. {props.idParking}</h1>
+                <p>PARKING ID :No. {props.idParking}</p>
+                <p>RECEIPT ID :No. {props.idReceipt}</p>
+                <p>LICENSE PLATE : {props.plate_number}</p>
                 <p>DATE CAR-IN :{props.date} </p>
                 <p>TIME CAR-IN : {props.time_In}</p>
                 <p>TIME CAR-OUT :{props.time_Out} </p>
-                <p>RECEIPT ID :No. {props.idReceipt}</p>
-                <p>LICENSE PLATE : NO.{props.plate_number}</p>
+                <p>DISCOUNT :{props.discount} </p>
             </div>
             <hr className="my-2" />
             <div>
-                <p>ราคา</p>
+                <p>ราคา : {props.price} บาท </p>
             </div>
         </div>
     );
