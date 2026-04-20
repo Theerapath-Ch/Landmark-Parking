@@ -14,7 +14,8 @@ export async function GET(_: NextRequest,
             receipt: {
                select: {
                   id: true,
-                  price:true
+                  price:true,
+                  discount:true
                }
             }
          }

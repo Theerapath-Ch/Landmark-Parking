@@ -25,6 +25,7 @@ model receipt {
   id     Int     @id @default(autoincrement())
   price  Int?
   status Boolean @default(false)
+  discount String? 
 
   parkingId String  @unique
   parking   parking @relation(fields: [parkingId], references: [id])
