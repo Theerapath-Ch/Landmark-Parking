@@ -92,8 +92,8 @@ const modeIn = () => {
           handlePrint()
         }
       })
+      router.push("/")
     }
-    router.push("/")
   }
 
 
