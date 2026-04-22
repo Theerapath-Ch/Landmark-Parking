@@ -27,8 +27,8 @@ interface ResGet {
         out_at: string
         receipt: {
             id: string,
-            price:number,
-            discount:string
+            price: number,
+            discount: string
         }
     }
 }
@@ -46,7 +46,7 @@ const page = () => {
 
     useEffect(() => {
         setAction({
-            "Enter": () => setDisplay(true),
+            "Enter": () => chkDataReceipt(value),
             "1": () => updateTimeOut(value, "Landmark"),
             "0": () => updateTimeOut(value, "No-Discount"),
             "/": () => router.push("/")
@@ -80,13 +80,13 @@ const page = () => {
         //console.log("timeOutUpdate :",timeOutUpdate);
         let resGet = {} as ResGet
         if (timeOutUpdate) {
-            const getTimeOut = await fetch(`/api/carOut/${patkingId}`)
-            resGet = await getTimeOut.json()
+            const getDataReceipt = await fetch(`/api/carOut/receipt/${patkingId}`)
+            resGet = await getDataReceipt.json()
         }
         //console.log(resGet);
         const { data } = resGet
         console.log(data);
-        
+
 
         if (success) {
             console.log(data.plate_number);
@@ -138,6 +138,21 @@ const page = () => {
         }
     }
 
+    const chkDataReceipt = async (chkDataReceipt: string) => {
+        const getChkDataReceipt = await fetch(`/api/carOut/${chkDataReceipt}`)
+        const res = await getChkDataReceipt.json()
+        console.log(res);
+
+        const { success, message } = res
+        if (!success) {
+            await Swal.fire({
+                icon: 'error',
+                title: message,
+            })
+        } else {
+            setDisplay(true)
+        }
+    }
 
     return (
         <div className="w-full mt-7  flex justify-center items-center ">

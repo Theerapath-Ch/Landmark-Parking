@@ -12,25 +12,6 @@ export async function PUT(req: NextRequest,
         const { discount } = body
         // console.log(discount);
 
-        const existing = await prisma.parking.findUnique({
-            where: { id: putParkingId }
-        })
-        //console.log(existing?.id);
-
-        if (!existing) {
-            return NextResponse.json(
-                { success: false, message: 'ไม่พบข้อมูลใน Barcode' },
-                { status: 404 }
-            )
-        }
-
-        if (existing.out_at != null) {
-            return NextResponse.json(
-                { success: false, message: `ไอดี ${putParkingId} นี้สแกนออกไปแล้ว !` },
-                { status: 404 }
-            )
-        }
-
         const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
         //console.log("time : ", now);
 
