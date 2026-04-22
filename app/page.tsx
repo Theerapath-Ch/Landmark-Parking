@@ -17,7 +17,17 @@ export default function Home() {
       "2": () => router.push("/modeOut"),
     })
 
+    getReportData()
+
   }, [router, setAction])
+
+
+  const getReportData = async () => {
+     const data = await fetch("/api/reportData")
+     const res = await data.json()
+     console.log(res);
+     
+  }
 
 
   return (
@@ -115,7 +125,7 @@ export default function Home() {
               <tbody>
                 <tr className="bg-white hover:bg-blue-50 transition">
                   <td className="px-4 py-3 font-semibold">001</td>
-                  <td className="px-4 py-3">กข-1234</td>
+                  <td className="px-4 py-3">1234</td>
                   <td className="px-4 py-3">10:30</td>
                   <td className="px-4 py-3">12:00</td>
                   <td className="px-4 py-3 text-center">
