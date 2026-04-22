@@ -100,68 +100,69 @@ const modeIn = () => {
       })
 
     }
-
-
-
-    return (
-      <div className="h-dvh bg-gray-100 flex items-center justify-center">
-        <div className="w-full max-w-350 grid grid-cols-3 gap-6 p-6">
-
-          {/* LEFT PANEL */}
-          <div className="col-span-2 bg-white rounded-3xl shadow-xl p-10 flex flex-col justify-between">
-            <div>
-              <p className="text-3xl text-gray-500 mb-4">กรอกเลขทะเบียน</p>
-              <input
-                type="text"
-                placeholder="----"
-                ref={inputRef}
-                onChange={(e) => {
-                  let val = e.target.value.replace(/\D/g, "")
-                  if (val.length > 4) {
-                    // alert("กรอกได้สูงสุด 4 ตัวเลข")
-                    val = val.slice(0, 4)
-                  }
-                  setValue(val)
-                }}
-                className="w-full h-45 text-center text-8xl font-bold border-4 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-500 transition"
-                required
-              />
-              {/* <p className="text-2xl text-gray-400 mt-6">
-              เวลาเข้า : <input className="text-black font-semibold" value="" readOnly />
-            </p> */}
-            </div>
-          </div>
-
-          {/* RIGHT PANEL */}
-          <div className="flex flex-col justify-between">
-            {/* SAVE */}
-            <button
-              className="flex-1 bg-green-300 text-5xl font-bold rounded-3xl shadow-lg"
-            >
-              SAVE
-            </button>
-
-
-            {/* CANCEL */}
-            <button className="flex-1 bg-red-400  text-5xl font-bold rounded-3xl shadow-lg  mt-6">
-              BACK
-            </button>
-
-          </div>
-
-        </div>
-        <div className="hidden">
-          <Receipt_In
-            ref={receiptRefIn}
-            idParking={printDataIn.idParking}
-            plate_number={printDataIn.plate_number}
-            date={printDataIn.date}
-            time={printDataIn.time}
-            idReceipt={printDataIn.idReceipt}
-          />
-        </div>
-      </div>
-    )
   }
 
-  export default modeIn
+
+
+  return (
+    <div className="h-dvh bg-gray-100 flex items-center justify-center">
+      <div className="w-full max-w-350 grid grid-cols-3 gap-6 p-6">
+
+        {/* LEFT PANEL */}
+        <div className="col-span-2 bg-white rounded-3xl shadow-xl p-10 flex flex-col justify-between">
+          <div>
+            <p className="text-3xl text-gray-500 mb-4">กรอกเลขทะเบียน</p>
+            <input
+              type="text"
+              placeholder="----"
+              ref={inputRef}
+              onChange={(e) => {
+                let val = e.target.value.replace(/\D/g, "")
+                if (val.length > 4) {
+                  // alert("กรอกได้สูงสุด 4 ตัวเลข")
+                  val = val.slice(0, 4)
+                }
+                setValue(val)
+              }}
+              className="w-full h-45 text-center text-8xl font-bold border-4 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-500 transition"
+              required
+            />
+            {/* <p className="text-2xl text-gray-400 mt-6">
+              เวลาเข้า : <input className="text-black font-semibold" value="" readOnly />
+            </p> */}
+          </div>
+        </div>
+
+        {/* RIGHT PANEL */}
+        <div className="flex flex-col justify-between">
+          {/* SAVE */}
+          <button
+            className="flex-1 bg-green-300 text-5xl font-bold rounded-3xl shadow-lg"
+          >
+            SAVE
+          </button>
+
+
+          {/* CANCEL */}
+          <button className="flex-1 bg-red-400  text-5xl font-bold rounded-3xl shadow-lg  mt-6">
+            BACK
+          </button>
+
+        </div>
+
+      </div>
+      <div className="hidden">
+        <Receipt_In
+          ref={receiptRefIn}
+          idParking={printDataIn.idParking}
+          plate_number={printDataIn.plate_number}
+          date={printDataIn.date}
+          time={printDataIn.time}
+          idReceipt={printDataIn.idReceipt}
+        />
+      </div>
+    </div>
+  )
+}
+
+export default modeIn
