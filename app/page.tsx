@@ -93,9 +93,41 @@ export default function Home() {
         </div>
 
         {/* Card 3 */}
-        <div className="bg-blue-100 rounded-2xl p-6 shadow-lg ">
-          <h2 className="text-xl font-bold mb-2 text-gray-800">📊 Report</h2>
-          <p className="text-gray-600">ดูรายงานและสถิติ</p>
+        <div className="bg-blue-100 rounded-2xl p-6 shadow-lg">
+          <h2 className="text-xl font-bold mb-4 text-gray-800">📊 Report</h2>
+
+          {/* Table */}
+          <div className="overflow-hidden rounded-xl shadow-md">
+            <table className="w-full text-center border-collapse">
+
+              {/* Header */}
+              <thead>
+                <tr className="bg-blue-300 text-gray-800 text-sm uppercase">
+                  <th className="px-4 py-3">ID</th>
+                  <th className="px-4 py-3">Plate</th>
+                  <th className="px-4 py-3">Time In</th>
+                  <th className="px-4 py-3">Time Out</th>
+                  <th className="px-4 py-3 text-center">Status</th>
+                </tr>
+              </thead>
+
+              {/* Body */}
+              <tbody>
+                <tr className="bg-white hover:bg-blue-50 transition">
+                  <td className="px-4 py-3 font-semibold">001</td>
+                  <td className="px-4 py-3">กข-1234</td>
+                  <td className="px-4 py-3">10:30</td>
+                  <td className="px-4 py-3">12:00</td>
+                  <td className="px-4 py-3 text-center">
+                    <span className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                      IN
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+          </div>
         </div>
 
       </div>
