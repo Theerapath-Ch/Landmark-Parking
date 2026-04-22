@@ -39,9 +39,9 @@ export async function POST(req: Request) {
         }
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         return NextResponse.json(
-            { message: "เพิ่มข้อมูลไม่สำเร็จ" },
+            { message: error },
             { status: 500 }
         )
     }
