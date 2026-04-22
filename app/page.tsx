@@ -13,11 +13,11 @@ export default function Home() {
 
   useEffect(() => {
     setAction({
-      "1" : () => router.push("/modeIn"),
-      "2" : () => router.push("/modeOut"),
+      "1": () => router.push("/modeIn"),
+      "2": () => router.push("/modeOut"),
     })
 
-  }, [router , setAction])
+  }, [router, setAction])
 
 
   return (
@@ -27,18 +27,67 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-1/3 w-full ">
         <div className="  ">
           {/* Card 1 */}
-          <div className="bg-green-300 mb-3 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
-            <h2 className="text-xl font-bold mb-2 text-gray-800">🚗 Parking</h2>
-            <div className="h-fit flex flex-col justify-center items-center">
-              <p className="text-9xl mt-3">IN</p>
+          <div
+            className="relative bg-green-300 mb-3 rounded-2xl p-6
+  shadow-[0_15px_35px_rgba(0,0,0,0.25)]
+  hover:shadow-[0_25px_45px_rgba(0,0,0,0.3)]
+  transition duration-300 transform hover:-translate-y-2
+  cursor-pointer overflow-hidden"
+          >
+            {/* Paper texture */}
+            <div className="absolute inset-0 bg-white/20 rounded-2xl mix-blend-overlay pointer-events-none"></div>
+
+            {/* Header */}
+            <h2 className="relative z-10 text-xl font-bold mb-2 text-gray-800">
+              🚗 Parking
+            </h2>
+
+            {/* Content */}
+            <div className="relative z-10 flex flex-col justify-center items-center">
+              <p className="text-9xl mt-3 font-extrabold text-white drop-shadow-lg">
+                IN
+              </p>
+            </div>
+
+            {/* Fold corner (กระดาษงอ) */}
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/30 rounded-tl-3xl"></div>
+
+            {/* Badge number */}
+            <div className="absolute bottom-3 right-4 bg-white text-green-600 text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-lg border border-green-300">
+              1
             </div>
           </div>
 
+
           {/* Card 2 */}
-          <div className="bg-red-400 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
-            <h2 className="text-xl font-bold mb-2 text-gray-800">🚗 Parking</h2>
-            <div className="h-fit flex flex-col justify-center items-center">
-              <p className="text-9xl mt-3">OUT</p>
+          <div
+            className="relative bg-red-400 mb-3 rounded-2xl p-6
+  shadow-[0_15px_35px_rgba(0,0,0,0.25)]
+  hover:shadow-[0_25px_45px_rgba(0,0,0,0.3)]
+  transition duration-300 transform hover:-translate-y-2
+  cursor-pointer overflow-hidden"
+          >
+            {/* Paper texture */}
+            <div className="absolute inset-0 bg-white/20 rounded-2xl mix-blend-overlay pointer-events-none"></div>
+
+            {/* Header */}
+            <h2 className="relative z-10 text-xl font-bold mb-2 text-gray-800">
+              🚗 Parking
+            </h2>
+
+            {/* Content */}
+            <div className="relative z-10 flex flex-col justify-center items-center">
+              <p className="text-9xl mt-3 font-extrabold text-white drop-shadow-lg">
+                OUT
+              </p>
+            </div>
+
+            {/* Fold corner (กระดาษงอ) */}
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/30 rounded-tl-3xl"></div>
+
+            {/* Badge number */}
+            <div className="absolute bottom-3 right-4 bg-white text-red-600 text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-lg border border-red-300">
+              2
             </div>
           </div>
         </div>
@@ -50,6 +99,6 @@ export default function Home() {
         </div>
 
       </div>
-    </div>
+    </div >
   );
 }

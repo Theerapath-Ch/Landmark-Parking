@@ -95,7 +95,7 @@ const modeIn = () => {
       router.push("/")
     } else {
       await Swal.fire({
-        title: message,
+        title: "internal Server Error",
         icon: 'error',
       })
 
@@ -134,18 +134,44 @@ const modeIn = () => {
         </div>
 
         {/* RIGHT PANEL */}
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between gap-1'">
           {/* SAVE */}
           <button
-            className="flex-1 bg-green-300 text-5xl font-bold rounded-3xl shadow-lg"
+            className="relative flex-1 bg-green-300 text-5xl font-bold rounded-xl px-8 py-6
+  shadow-[0_15px_35px_rgba(0,0,0,0.25)]
+  border border-green-200 "
           >
-            SAVE
+            {/* Text */}
+            <span className="relative z-10">SAVE</span>
+
+            {/* Fold corner (มุมกระดาษงอ) */}
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/30 rounded-tl-3xl"></div>
+
+            {/* Badge number */}
+            <div className="absolute bottom-3 right-3  text-green-600 text-lg font-extrabold w-10 h-10 flex items-center justify-center ">
+              Enter
+            </div>
+
           </button>
 
 
           {/* CANCEL */}
-          <button className="flex-1 bg-red-400  text-5xl font-bold rounded-3xl shadow-lg  mt-6">
-            BACK
+          <button
+            className="relative flex-1 bg-red-600 text-5xl mt-2 font-bold rounded-xl px-8 py-6
+  shadow-[0_15px_35px_rgba(0,0,0,0.25)]
+  border border-red-200"
+          >
+            {/* Text */}
+            <span className="relative z-10">Back</span>
+
+            {/* Fold corner (มุมกระดาษงอ) */}
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/30 rounded-tl-3xl"></div>
+
+            {/* Badge number */}
+            <div className="absolute bottom-3 right-3 bg-white text-red-600 text-xl font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-lg border border-red-300">
+              /
+            </div>
+
           </button>
 
         </div>
