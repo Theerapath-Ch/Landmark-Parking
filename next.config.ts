@@ -8,3 +8,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// cloudflared tunnel --url http://localhost:3000

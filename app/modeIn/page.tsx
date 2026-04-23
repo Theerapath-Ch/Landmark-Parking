@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from "react"
-import { useKeyboard } from "@/utills/useKeyboard"
+import { useKeyboard } from "@/utils/useKeyboard"
 import { useRouter } from "next/navigation"
 import { useReactToPrint } from "react-to-print"
 import Swal from "sweetalert2"

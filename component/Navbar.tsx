@@ -4,7 +4,7 @@ import logo from "../public/logo.png";
 
 const Navbar = () => {
     return (
-        <nav className="w-full  2xl:p-4 relative shadow-2xl shadow-gray-400 overflow-hidden bg-linear-to-r from-black via-gray-900 to-black ">
+        <nav className="w-full  2xl:p-4 relative shadow-2xl shadow-gray-400 overflow-hidden bg-linear-to-r from-black via-gray-900 to-black  ">
             {/* เอฟเฟกต์แสงวิ่ง */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_40%)] animate-pulse"></div>
             {/* เส้นแสงด้านล่าง */}

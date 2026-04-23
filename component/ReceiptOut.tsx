@@ -1,5 +1,7 @@
 // components/Receipt.tsx
 import { forwardRef } from "react";
+import logo from "../public/logo.png";
+import Image from "next/image";
 
 interface PrintDataOut {
     idParking: string
@@ -13,12 +15,18 @@ interface PrintDataOut {
 
 }
 
-const Receipt_Out = forwardRef<HTMLDivElement , PrintDataOut>((props, ref) => {
+const Receipt_Out = forwardRef<HTMLDivElement, PrintDataOut>((props, ref) => {
     // console.log(props.in_at);
     return (
         <div ref={ref} className="p-4 border text-sm w-[300px] bg-white text-black text-left">
-            <h2 className="text-center font-bold text-lg">LANDMARK</h2>
-            <p className="text-center">Tel: 099-999-9999</p>
+            <div className="flex gap-5">
+                <Image src={logo} alt="logo" width={50}
+                    height={50} />
+                <div>
+                    <h2 className="text-center font-bold text-lg">LANDMARK</h2>
+                    <p className="text-center">Tel: 099-999-9999</p>
+                </div>
+            </div>
             <hr className="my-2" />
 
             <div>
