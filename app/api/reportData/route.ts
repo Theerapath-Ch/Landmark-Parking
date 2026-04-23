@@ -5,20 +5,52 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(_: NextRequest) {
     try {
-        
-        //console.log(chkDataReceipt);
-        
 
-        const data = await prisma.parking.findMany()
+        //console.log(chkDataReceipt);
+
+        const today = new Date();
+
+        const start = new Date(Date.UTC(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+            0, 0, 0
+        ));
+
+        const end = new Date(Date.UTC(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+            23, 59, 59
+        ));
+
+        // const data = await prisma.parking.findMany({
+        //     where: {
+        //         in_at: {
+        //             gte: start,
+        //             lte: end
+        //         }
+        //     }
+        // });
+        const data = await prisma.parking.findMany({
+            where: {
+                in_at: {
+                    gte: start,
+                    lte: end
+                },
+                out_at: null 
+            },
+
+        })
         console.log(data);
 
-        
-        
+
+
 
         return NextResponse.json(
             {
                 success: true,
-                data:data,
+                data: data,
                 status: 200
             }
         )
