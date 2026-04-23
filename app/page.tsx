@@ -1,15 +1,23 @@
 'use client'
-import { useEffect } from "react";
-import { useKeyboard } from "@/utills/useKeyboard";
+import { useEffect, useState } from "react";
+import { useKeyboard } from "@/utils/useKeyboard";
 import { useRouter } from "next/navigation";
-// import { useNumpadNavigation } from "../utills/useNumpadNavigation"
-// import { useKeyDown } from "../utills/useKeyDown"
+
+interface ReportData {
+  id: string,
+  plate_number: string,
+  in_at: string,
+  out_at: string,
+  status: string
+}
+
+
 export default function Home() {
-  // const action = useNumpadNavigation();
-  // const handelKey = useKeyDown()
 
   const router = useRouter()
   const { setAction } = useKeyboard()
+
+  const [data, setData] = useState<ReportData[]>([])
 
   useEffect(() => {
     setAction({
@@ -17,17 +25,21 @@ export default function Home() {
       "2": () => router.push("/modeOut"),
     })
 
+    const getReportData = async () => {
+      const getData = await fetch("/api/reportData")
+      const res = await getData.json()
+      // console.log(res);
+      const { data } = res
+      // console.log(data);
+
+      setData(data)
+    }
     getReportData()
 
   }, [router, setAction])
 
 
-  const getReportData = async () => {
-     const data = await fetch("/api/reportData")
-     const res = await data.json()
-     console.log(res);
-     
-  }
+
 
 
   return (
@@ -114,26 +126,34 @@ export default function Home() {
               <thead>
                 <tr className="bg-blue-300 text-gray-800 text-sm uppercase">
                   <th className="px-4 py-3">ID</th>
-                  <th className="px-4 py-3">Plate</th>
-                  <th className="px-4 py-3">Time In</th>
-                  <th className="px-4 py-3">Time Out</th>
+                  <th className="px-4 py-3">เลขทะเบียน</th>
+                  <th className="px-4 py-3">เวลาเข้า</th>
                   <th className="px-4 py-3 text-center">Status</th>
                 </tr>
               </thead>
 
               {/* Body */}
               <tbody>
-                <tr className="bg-white hover:bg-blue-50 transition">
-                  <td className="px-4 py-3 font-semibold">001</td>
-                  <td className="px-4 py-3">1234</td>
-                  <td className="px-4 py-3">10:30</td>
-                  <td className="px-4 py-3">12:00</td>
-                  <td className="px-4 py-3 text-center">
-                    <span className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                      IN
-                    </span>
-                  </td>
-                </tr>
+                {data.map((item, id) => {
+                  return (
+                    <tr key={id} className="bg-white hover:bg-blue-50 transition">
+                      <td className="px-4 py-3 font-semibold">{item.id}</td>
+                      <td className="px-4 py-3">{item.plate_number}</td>
+                      <td className="px-4 py-3">{item.in_at.split("T")[1].split(".")[0]}</td>
+                      {
+                        !item.out_at && (
+                          <td className="px-4 py-3 text-center">
+                            <span className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                              IN
+                            </span>
+                          </td>
+                        )
+
+                      }
+
+                    </tr>
+                  )
+                })}
               </tbody>
 
             </table>
