@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from "react"
-import { useKeyboard } from "@/utills/useKeyboard"
+import { useKeyboard } from "@/utils/useKeyboard"
 import { useRouter } from "next/navigation"
 import Swal from "sweetalert2"
 import Receipt_Out from "@/component/ReceiptOut"
@@ -149,9 +149,11 @@ const page = () => {
                 icon: 'error',
                 title: message,
             })
+            router.push("/")
         } else {
             setDisplay(true)
         }
+
     }
 
     return (
