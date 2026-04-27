@@ -52,7 +52,7 @@ const page = () => {
             "/": () => router.push("/")
         })
         inputRef.current?.focus()
-        console.log(value);
+        //console.log(value);   
 
     }, [value])
 

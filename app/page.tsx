@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useKeyboard } from "@/utils/useKeyboard";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface ReportData {
   id: string,
@@ -159,8 +160,16 @@ export default function Home() {
             </table>
           </div>
         </div>
-
+        <div>
+          <Link className="
+      px-4 py-2
+      border border-gray-300
+      rounded-full
+      text-gray-600
+      hover:border-red-500 hover:text-red-500
+      transition" href={"/login"}>Log OUT</Link>
       </div>
+    </div>
     </div >
   );
 }
