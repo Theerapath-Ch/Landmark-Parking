@@ -9,18 +9,17 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
 
-model admin{
-  id  Int @id @default(autoincrement())
-  name String 
-  lastname String 
-  pass Int 
+model admin {
+  id       Int    @id @default(autoincrement())
+  name     String
+  lastname String
+  pass     Int
 }
-
 
 model parking {
   id           String    @id
@@ -35,6 +34,7 @@ model receipt {
   price    Int?
   status   Boolean @default(false)
   discount String?
+  remark   String?
 
   parkingId String  @unique
   parking   parking @relation(fields: [parkingId], references: [id])
