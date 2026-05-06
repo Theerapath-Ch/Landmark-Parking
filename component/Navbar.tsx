@@ -11,17 +11,17 @@ const Navbar = () => {
             <div className="absolute bottom-0 left-0 w-full "></div>
             <div className="flex justify-center items-center gap-4 py-3 relative z-10">
                 {/* Logo */}
-                <Image
+                {/* <Image
                     src={logo}
                     alt="logo"
                     width={100}
                     height={100}
                     // className="w-25 h-25 "
-                />
+                /> */}
                 {/* Title */}
-                <h1 className="text-amber-100 text-3xl md:text-4xl font-bold tracking-wider 
+                <h1 className="text-amber-100 text-3xl md:text-6xl font-bold tracking-wider 
                     drop-shadow-[0_0_8px_rgba(255,200,0,0.5)]">
-                    LANDMARK PARKING POS
+                    HUAI KHWANG ESPORT
                 </h1>
             </div>
         </nav>

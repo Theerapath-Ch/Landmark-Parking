@@ -160,9 +160,9 @@ const page = () => {
         <div className="w-full mt-7  flex justify-center items-center ">
             {!display && (
                 <div className=" w-5xl h-full text-8xl p-5 flex  flex-col justify-center items-center  ">
-                    BARCODE
+                    BARCODE 
                     <div>
-                        <input ref={inputRef} className="w-full h-45 text-center  text-8xl font-bold border-4 border-amber-300 rounded-2xl focus:outline-none  transition" type="text"
+                        <input ref={inputRef} className="w-full h-45 text-center  text-8xl font-bold border-4 border-red-500 rounded-2xl focus:outline-none  transition" type="text"
                             onChange={(e) => {
                                 const val = e.target.value
                                 setValue(val)

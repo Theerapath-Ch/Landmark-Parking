@@ -17,11 +17,11 @@ const Receipt_IN = forwardRef<HTMLDivElement, PrintDataIn>((props, ref) => {
     return (
         <div ref={ref} className="p-4 text-sm w-[300px] bg-white text-black">
             <div className="flex gap-5">
-                <Image src={logo} alt="logo" width={50}
-                    height={50} />
+                {/* <Image src={logo} alt="logo" width={50}
+                    height={50} /> */}
                 <div>
-                    <h2 className="text-center font-bold text-lg">LANDMARK</h2>
-                    <p className="text-center">Tel: 099-999-9999</p>
+                    <h2 className="text-center font-bold text-lg">HUAI KHWANG ESPORT</h2>
+                    {/* <p className="text-center">Tel: 099-999-9999</p> */}
                 </div>
             </div>
 
@@ -31,7 +31,7 @@ const Receipt_IN = forwardRef<HTMLDivElement, PrintDataIn>((props, ref) => {
                 <h4 className="font-bold">อัตราค่าบริการ</h4>
                 <p>รถยนต์</p>
                 <p>1. ค่าบริการ 20 นาทีแรกฟรี นาทีที่ 26 - 60 คิดค่าบริการ 40.- บาท และจากนั้นคิดค่าบริการในอัตราชั่วโมงละ 40.- บาท</p>
-                <p>2. เมื่อประทับตรา ZOWIE Esport Center ค่าบริการ 3 ชั่วโมงแรกฟรี จากนั้นคิดค่าบริการในอัตราชั่วโมงละ 10.- บาท</p>
+                <p>2. เมื่อประทับตรา LANDMARK ค่าบริการ 3 ชั่วโมงแรกฟรี จากนั้นคิดค่าบริการในอัตราชั่วโมงละ 10.- บาท</p>
                 <p>3. เศษนาทีคิดค่าบริการเป็น 1 ชั่วโมง</p>
             </div>
 

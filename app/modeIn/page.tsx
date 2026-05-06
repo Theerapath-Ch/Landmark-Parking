@@ -157,7 +157,7 @@ const modeIn = () => {
 
           {/* CANCEL */}
           <button
-            className="relative flex-1 bg-red-600 text-5xl mt-2 font-bold rounded-xl px-8 py-6
+            className="relative flex-1 bg-red-400 text-5xl mt-2 font-bold rounded-xl px-8 py-6
   shadow-[0_15px_35px_rgba(0,0,0,0.25)]
   border border-red-200"
           >
