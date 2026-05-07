@@ -3,7 +3,7 @@
 const ModeLost = () => {
     return (
         <div
-            className="relative bg-orange-400 mb-3 rounded-2xl p-6
+            className="relative bg-orange-400  rounded-2xl p-6
   shadow-[0_15px_35px_rgba(0,0,0,0.25)]
   hover:shadow-[0_25px_45px_rgba(0,0,0,0.3)]
   transition duration-300 transform hover:-translate-y-2
