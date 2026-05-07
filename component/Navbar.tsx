@@ -19,7 +19,7 @@ const Navbar = () => {
                     // className="w-25 h-25 "
                 /> */}
                 {/* Title */}
-                <h1 className="text-amber-100 text-3xl md:text-6xl font-bold tracking-wider 
+                <h1 className="text-amber-100 text-3xl md:text-7xl font-bold tracking-wider 
                     drop-shadow-[0_0_8px_rgba(255,200,0,0.5)]">
                     HUAI KHWANG ESPORT
                 </h1>

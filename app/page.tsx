@@ -46,18 +46,20 @@ export default function Home() {
 
   return (
 
-    <div className="p-8 flex justify-center items-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-1/3 w-full ">
-        <div>
+    <div className="p-0 flex justify-center items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6  w-full  px-10 py-4 ">
+        <div className="">
           {/* card */}
           <ModeIn />
           <ModeOut />
           <ModeLost />
         </div>
 
-        {/* Report */}
-        <Report data={data}  />
-        
+        <div className=" w-full ">
+          {/* Report */}
+          <Report data={data} />
+        </div>
+
         {/* <div>
           <Link className="
       px-4 py-2

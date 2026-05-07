@@ -10,7 +10,7 @@ interface ReportData {
 
 const Report = ({ data }: {data : ReportData[]} ) => {
     return (
-        <div className="bg-blue-100 rounded-2xl p-6 shadow-lg">
+        <div className="bg-blue-100 rounded-2xl p-6 shadow-lg h-full">
             <h2 className="text-xl font-bold mb-4 text-gray-800">📊 Report</h2>
 
             {/* Table */}
