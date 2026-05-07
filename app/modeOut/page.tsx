@@ -40,6 +40,7 @@ const page = () => {
     const receiptRefOut = useRef<HTMLDivElement>(null);
     const [value, setValue] = useState<string>("");
     const [display, setDisplay] = useState<boolean>(false);
+    //const displayRef = useRef(false)
     const handlePrint = useReactToPrint({
         contentRef: receiptRefOut,
     });
@@ -54,91 +55,99 @@ const page = () => {
         inputRef.current?.focus()
         //console.log(value);   
 
-    }, [value])
+    }, [value , display])
 
 
     const updateTimeOut = async (patkingId: string, discount: string | null) => {
+        //console.log(displayRef.current);
 
-        const timeOutUpdate = await fetch(`/api/carOut/updateTimeOut/${patkingId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ discount: discount })
-        })
-        const resUpdate = await timeOutUpdate.json()
-        console.log(resUpdate);
+        // if (displayRef.current) {
+        if (display) {
+           // console.log("test updateTimeOut ");
 
-        const { success, message } = resUpdate
-        if (!success) {
-            await Swal.fire({
-                icon: 'error',
-                title: message,
+            const timeOutUpdate = await fetch(`/api/carOut/updateTimeOut/${patkingId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ discount: discount })
             })
-            router.push("/")
-        }
+            const resUpdate = await timeOutUpdate.json()
+            console.log(resUpdate);
 
-
-        //console.log("timeOutUpdate :",timeOutUpdate);
-        let resGet = {} as ResGet
-        if (timeOutUpdate) {
-            const getDataReceipt = await fetch(`/api/carOut/receipt/${patkingId}`)
-            resGet = await getDataReceipt.json()
-        }
-        //console.log(resGet);
-        const { data } = resGet
-        console.log(data);
-
-
-        if (success) {
-            console.log(data.plate_number);
-            const dateIn = data.in_at.split('T')[0]
-            const timeIn = data.in_at.split('T')[1].split('.')[0]
-            const dateOut = data.out_at.split('T')[1].split('.')[0]
-            const timeOut = data.out_at.split('T')[1].split('.')[0]
-            // console.log(timeIn);
-            // console.log(timeOut);
-
-            const printDataOut: PrintDataOut = {
-                idParking: data.id,
-                plate_number: data.plate_number,
-                date: dateIn,
-                time_In: timeIn,
-                time_Out: timeOut,
-                idReceipt: data.receipt.id,
-                price: data.receipt.price,
-                discount: data.receipt.discount
+            const { success, message } = resUpdate
+            if (!success) {
+                await Swal.fire({
+                    icon: 'error',
+                    title: message,
+                })
+                router.push("/")
             }
-            await Swal.fire({
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showCloseButton: false,
-                html: '<div id="receipt-root" style="display:flex; justify-content:center;  width:100%;"></div>',
-                confirmButtonText: 'ปริ้นใบเสร็จ',
-                didOpen: () => {
-                    const el = document.getElementById('receipt-root')
-                    if (el) {
-                        createRoot(el).render(<Receipt_Out
-                            ref={receiptRefOut}
-                            idParking={printDataOut.idParking}
-                            plate_number={printDataOut.plate_number}
-                            date={printDataOut.date}
-                            time_In={printDataOut.time_In}
-                            time_Out={printDataOut.time_Out}
-                            idReceipt={printDataOut.idReceipt}
-                            price={printDataOut.price}
-                            discount={printDataOut.discount}
-                        />)
+
+
+            //console.log("timeOutUpdate :",timeOutUpdate);
+            let resGet = {} as ResGet
+            if (timeOutUpdate) {
+                const getDataReceipt = await fetch(`/api/carOut/receipt/${patkingId}`)
+                resGet = await getDataReceipt.json()
+            }
+            //console.log(resGet);
+            const { data } = resGet
+            console.log(data);
+
+
+            if (success) {
+                console.log(data.plate_number);
+                const dateIn = data.in_at.split('T')[0]
+                const timeIn = data.in_at.split('T')[1].split('.')[0]
+                const dateOut = data.out_at.split('T')[1].split('.')[0]
+                const timeOut = data.out_at.split('T')[1].split('.')[0]
+                // console.log(timeIn);
+                // console.log(timeOut);
+
+                const printDataOut: PrintDataOut = {
+                    idParking: data.id,
+                    plate_number: data.plate_number,
+                    date: dateIn,
+                    time_In: timeIn,
+                    time_Out: timeOut,
+                    idReceipt: data.receipt.id,
+                    price: data.receipt.price,
+                    discount: data.receipt.discount
+                }
+                await Swal.fire({
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showCloseButton: false,
+                    html: '<div id="receipt-root" style="display:flex; justify-content:center;  width:100%;"></div>',
+                    confirmButtonText: 'ปริ้นใบเสร็จ',
+                    didOpen: () => {
+                        const el = document.getElementById('receipt-root')
+                        if (el) {
+                            createRoot(el).render(<Receipt_Out
+                                ref={receiptRefOut}
+                                idParking={printDataOut.idParking}
+                                plate_number={printDataOut.plate_number}
+                                date={printDataOut.date}
+                                time_In={printDataOut.time_In}
+                                time_Out={printDataOut.time_Out}
+                                idReceipt={printDataOut.idReceipt}
+                                price={printDataOut.price}
+                                discount={printDataOut.discount}
+                            />)
+                        }
                     }
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    handlePrint()
-                    router.push("/")
-                }
-            })
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        handlePrint()
+                        router.push("/")
+                    }
+                })
+            }
         }
     }
 
     const chkDataReceipt = async (chkDataReceipt: string) => {
+        //console.log(chkDataReceipt);
+
         const getChkDataReceipt = await fetch(`/api/carOut/${chkDataReceipt}`)
         const res = await getChkDataReceipt.json()
         console.log(res);
@@ -152,6 +161,7 @@ const page = () => {
             router.push("/")
         } else {
             setDisplay(true)
+            //displayRef.current = true
         }
 
     }
@@ -160,12 +170,20 @@ const page = () => {
         <div className="w-full mt-7  flex justify-center items-center ">
             {!display && (
                 <div className=" w-5xl h-full text-8xl p-5 flex  flex-col justify-center items-center  ">
-                    BARCODE 
+                    BARCODE
                     <div>
                         <input ref={inputRef} className="w-full h-45 text-center  text-8xl font-bold border-4 border-red-500 rounded-2xl focus:outline-none  transition" type="text"
-                            onChange={(e) => {
-                                const val = e.target.value
-                                setValue(val)
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+
+                                    const value = e.currentTarget.value.trim();
+                                    setValue(value)
+
+                                    //console.log(value);
+
+                                    // ทำงานตรงนี้
+                                }
                             }}
                         />
                     </div>
@@ -250,3 +268,4 @@ const page = () => {
 }
 
 export default page
+
