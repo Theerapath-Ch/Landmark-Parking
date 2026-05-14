@@ -20,11 +20,11 @@ const Receipt_Out = forwardRef<HTMLDivElement, PrintDataOut>((props, ref) => {
     return (
         <div ref={ref} className="p-4 border text-sm w-[300px] bg-white text-black text-left">
             <div className="flex gap-5">
-                <Image src={logo} alt="logo" width={50}
-                    height={50} />
+                {/* <Image src={logo} alt="logo" width={50}
+                    height={50} /> */}
                 <div>
-                    <h2 className="text-center font-bold text-lg">LANDMARK</h2>
-                    <p className="text-center">Tel: 099-999-9999</p>
+                    <h2 className="text-center font-bold text-lg">HUAI KHWANG ESPORT</h2>
+                    {/* <p className="text-center">Tel: 099-999-9999</p> */}
                 </div>
             </div>
             <hr className="my-2" />
@@ -40,7 +40,7 @@ const Receipt_Out = forwardRef<HTMLDivElement, PrintDataOut>((props, ref) => {
             </div>
             <hr className="my-2" />
             <div>
-                <p>ราคา : {props.price} บาท </p>
+                <p className=" text-4xl">ราคา : {props.price} บาท </p>
             </div>
         </div>
     );

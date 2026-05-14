@@ -39,8 +39,8 @@ const page = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const receiptRefOut = useRef<HTMLDivElement>(null);
     const [value, setValue] = useState<string>("");
-    const [display, setDisplay] = useState<boolean>(false);
-    //const displayRef = useRef(false)
+    const [displayDiscount, setdisplayDiscount] = useState<boolean>(false);
+    //const displayDiscountRef = useRef(false)
     const handlePrint = useReactToPrint({
         contentRef: receiptRefOut,
     });
@@ -55,15 +55,13 @@ const page = () => {
         inputRef.current?.focus()
         //console.log(value);   
 
-    }, [value , display])
+    }, [value, displayDiscount])
 
 
     const updateTimeOut = async (patkingId: string, discount: string | null) => {
-        //console.log(displayRef.current);
-
-        // if (displayRef.current) {
-        if (display) {
-           // console.log("test updateTimeOut ");
+        // if (displayDiscountRef.current) {
+        if (displayDiscount) {
+            // console.log("test updateTimeOut ");
 
             const timeOutUpdate = await fetch(`/api/carOut/updateTimeOut/${patkingId}`, {
                 method: 'PUT',
@@ -160,110 +158,114 @@ const page = () => {
             })
             router.push("/")
         } else {
-            setDisplay(true)
-            //displayRef.current = true
+            setdisplayDiscount(true)
+            //displayDiscountRef.current = true
         }
 
     }
 
     return (
-        <div className="w-full mt-7  flex justify-center items-center ">
-            {!display && (
-                <div className=" w-5xl h-full text-8xl p-5 flex  flex-col justify-center items-center  ">
-                    BARCODE
-                    <div>
-                        <input ref={inputRef} className="w-full h-45 text-center  text-8xl font-bold border-4 border-red-500 rounded-2xl focus:outline-none  transition" type="text"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    e.preventDefault();
-
-                                    const value = e.currentTarget.value.trim();
-                                    setValue(value)
-
-                                    //console.log(value);
-
-                                    // ทำงานตรงนี้
-                                }
-                            }}
-                        />
-                    </div>
-                    {value && (
+        <div className="p-3">
+            <div className="bg-gray-100 w-fit p-3 mb-2 text-2xl text-gray-700 px-3 py-1 rounded-lg  font-mono shadow-inner">
+                กด <span className="text-gray-700  font-medium tracking-wide"> "/" </span> เพื่อย้อนกลับ
+            </div>
+            <div className="w-full mt-7  flex justify-center items-center ">
+                {!displayDiscount && (
+                    <div className=" w-5xl h-full text-8xl p-5 flex  flex-col justify-center items-center  ">
+                        BARCODE
                         <div>
-                            <button className="flex-1 p-5 bg-green-300 text-5xl font-bold rounded-3xl shadow-lg">Enter</button>
+                            <input ref={inputRef} className="w-full h-45 text-center  text-8xl font-bold border-4 border-red-500 rounded-2xl focus:outline-none  transition" type="text"
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        e.preventDefault();
+
+                                        const value = e.currentTarget.value.trim();
+                                        setValue(value)
+
+                                        //console.log(value);
+
+                                        // ทำงานตรงนี้
+                                    }
+                                }}
+                            />
                         </div>
-                    )}
-                </div>
-            )}
-            {display && (
-                <div className="w-full  flex justify-center items-center mt-7">
-                    <div className="w-full max-w-xl ">
-
-                        {/* Card */}
-                        <div className=" rounded-3xl shadow-2xl p-8 text-center ">
-
-                            {/* Header */}
-                            <h1 className="text-4xl font-extrabold tracking-wide mb-6">
-                                🎟 Discount
-                            </h1>
-
-                            {/* Brand */}
-                            <div className="relative bg-gradient-to-r from-green-400 to-emerald-600 text-white text-4xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
-
-                                {/* Paper texture overlay */}
-                                <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
-
-                                {/* Content */}
-                                <span className="relative z-10 tracking-wide">LANMARK</span>
-
-                                {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
-                                <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
-
-                                {/* Badge */}
-                                <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-emerald-300">
-                                    1
-                                </div>
-
+                        {value && (
+                            <div>
+                                <button className="flex-1 p-5 bg-green-300 text-5xl font-bold rounded-3xl shadow-lg">Enter</button>
                             </div>
+                        )}
+                    </div>
+                )}
+                {displayDiscount && (
+                    <div className="w-full  flex justify-center items-center mt-7">
+                        <div className="w-full max-w-xl ">
 
-                            {/* VIP Badge */}
-                            <div className="flex flex-col ">
+                            {/* Card */}
+                            <div className=" rounded-3xl shadow-2xl p-8 text-center ">
 
-                                <div className="bg-gradient-to-r from-gray-400 to-gray-600 text-white text-4xl font-bold py-4 px-6 rounded-2xl shadow-lg mb-6">
-                                    VIP
-                                </div>
+                                {/* Header */}
+                                <h1 className="text-4xl font-extrabold tracking-wide mb-6">
+                                    🎟 Discount
+                                </h1>
 
-                                <div className="bg-gradient-to-r from-gray-400 to-gray-600 text-white text-4xl font-bold py-4 px-6 rounded-2xl shadow-lg mb-6">
-                                    VIP
-                                </div>
-
-                                {/* No Discount */}
-                                <div className="relative bg-gradient-to-r from-red-800 to-red-600 text-white text-xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
+                                {/* Brand */}
+                                <div className="relative bg-gradient-to-r from-green-400 to-emerald-600 text-white text-4xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
 
                                     {/* Paper texture overlay */}
                                     <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
 
                                     {/* Content */}
-                                    <span className="relative z-10 tracking-wide"> ❌ ไม่มีส่วนลด</span>
+                                    <span className="relative z-10 tracking-wide">LANMARK</span>
 
                                     {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
                                     <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
 
                                     {/* Badge */}
-                                    <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-red-700">
-                                        0
+                                    <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-emerald-300">
+                                        1
                                     </div>
 
                                 </div>
 
+                                {/* VIP Badge */}
+                                <div className="flex flex-col ">
+
+                                    <div className="bg-gradient-to-r from-gray-400 to-gray-600 text-white text-4xl font-bold py-4 px-6 rounded-2xl shadow-lg mb-6">
+                                        VIP
+                                    </div>
+
+                                    <div className="bg-gradient-to-r from-gray-400 to-gray-600 text-white text-4xl font-bold py-4 px-6 rounded-2xl shadow-lg mb-6">
+                                        VIP
+                                    </div>
+
+                                    {/* No Discount */}
+                                    <div className="relative bg-gradient-to-r from-red-800 to-red-600 text-white text-xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
+
+                                        {/* Paper texture overlay */}
+                                        <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
+
+                                        {/* Content */}
+                                        <span className="relative z-10 tracking-wide"> ❌ ไม่มีส่วนลด</span>
+
+                                        {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
+                                        <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
+
+                                        {/* Badge */}
+                                        <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-red-700">
+                                            0
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
                             </div>
-
-
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
-
     )
 }
 
