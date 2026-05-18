@@ -136,62 +136,6 @@ export default function LoginPage() {
                         </div>
                     </div>
                 </div>
-                {/* <div className="border border-red-500">
-                    <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
-                    <div className="space-y-5">
-                        <input
-                            ref={inputRef1}
-                            type="text"
-                            placeholder="ID"
-                            className="w-full p-3 rounded-lg
-                            bg-white/80 text-black
-                            outline-none focus:ring-2 focus:ring-orange-400"
-                            onChange={(e) => { usernameRef.current = e.target.value }}
-                        />
-                        <input
-                            ref={inputRef2}
-                            type="password"
-                            placeholder="Password"
-                            className="w-full p-3 rounded-lg
-                            bg-white/80 text-black
-                            outline-none focus:ring-2 focus:ring-orange-400"
-                            onChange={(e) => { passwordRef.current = e.target.value }}
-                        />
-                        {/* Error message */}
-                        {/* {error && (
-                            <p className="text-sm text-red-300 bg-red-500/20 
-                            border border-red-400/40 rounded-lg px-3 py-2 text-center">
-                                {error}
-                            </p>
-                        )}
-                        <div className="flex gap-3">
-                            <button
-                                onClick={() => logIn(usernameRef.current, passwordRef.current)}
-                                disabled={loading}
-                                className="w-full p-3 rounded-lg
-                                bg-gradient-to-r from-orange-500 to-red-500
-                                font-bold text-white
-                                hover:scale-105 transition duration-300
-                                shadow-lg hover:shadow-orange-500/50
-                                disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
-                            >
-                                {loading ? "กำลังเข้าสู่ระบบ..." : "Sign In"}
-                            </button>
-
-                            <button
-                                onClick={() => router.push("/register")}
-                                className="w-full p-3 rounded-lg
-                                bg-gradient-to-r from-blue-500 to-blue-800
-                                font-bold text-white
-                                hover:scale-105 transition duration-300
-                                shadow-lg hover:shadow-blue-500/50"
-                            >
-                                Register
-                            </button>
-                        </div>
-                    </div>
-                </div>  */} 
-
             </div>
         </div>
     );
