@@ -8,11 +8,12 @@ interface ReportData {
     status: string
 }
 
-const Report = ({ data }: {data : ReportData[]} ) => {
+const Report = ({ data }: { data: ReportData[] }) => {
+
     return (
         <div className="bg-blue-100 rounded-2xl p-6 shadow-lg h-full">
             <h2 className="text-xl font-bold mb-4 text-gray-800">📊 Report</h2>
-
+        
             {/* Table */}
             <div className="overflow-hidden rounded-xl shadow-md">
                 <table className="w-full text-center border-collapse">
@@ -24,6 +25,7 @@ const Report = ({ data }: {data : ReportData[]} ) => {
                             <th className="px-4 py-3">เลขทะเบียน</th>
                             <th className="px-4 py-3">เวลาเข้า</th>
                             <th className="px-4 py-3 text-center">Status</th>
+                            {/* <th className="px-4 py-3 text-center"></th> */}
                         </tr>
                     </thead>
 
@@ -45,7 +47,7 @@ const Report = ({ data }: {data : ReportData[]} ) => {
                                         )
 
                                     }
-
+                                    {/* <td className="px-4 py-3"><button>print</button></td> */}
                                 </tr>
                             )
                         })}

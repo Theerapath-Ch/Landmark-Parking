@@ -145,10 +145,9 @@ const page = () => {
 
     const chkDataReceipt = async (chkDataReceipt: string) => {
         //console.log(chkDataReceipt);
-
         const getChkDataReceipt = await fetch(`/api/carOut/${chkDataReceipt}`)
         const res = await getChkDataReceipt.json()
-        console.log(res);
+        //console.log(res);
 
         const { success, message } = res
         if (!success) {
@@ -159,7 +158,6 @@ const page = () => {
             router.push("/")
         } else {
             setdisplayDiscount(true)
-            //displayDiscountRef.current = true
         }
 
     }
@@ -178,13 +176,8 @@ const page = () => {
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                         e.preventDefault();
-
                                         const value = e.currentTarget.value.trim();
                                         setValue(value)
-
-                                        //console.log(value);
-
-                                        // ทำงานตรงนี้
                                     }
                                 }}
                             />
