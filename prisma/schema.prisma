@@ -16,9 +16,11 @@ datasource db {
 
 model admin {
   id       Int    @id @default(autoincrement())
-  name     String
-  lastname String
+  name     String?
+  lastname String?
+  username  String  @unique
   pass     Int
+  createAt  DateTime
 }
 
 model parking {
