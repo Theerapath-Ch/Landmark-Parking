@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "admin" ALTER COLUMN "name" DROP NOT NULL,
-ALTER COLUMN "lastname" DROP NOT NULL;
