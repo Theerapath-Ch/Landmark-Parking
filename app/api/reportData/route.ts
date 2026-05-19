@@ -6,8 +6,6 @@ import { prisma } from "@/lib/prisma";
 export async function GET(_: NextRequest) {
     try {
 
-        //console.log(chkDataReceipt);
-
         const today = new Date();
 
         const start = new Date(Date.UTC(
@@ -24,14 +22,6 @@ export async function GET(_: NextRequest) {
             23, 59, 59
         ));
 
-        // const data = await prisma.parking.findMany({
-        //     where: {
-        //         in_at: {
-        //             gte: start,
-        //             lte: end
-        //         }
-        //     }
-        // });
         const data = await prisma.parking.findMany({
             where: {
                 in_at: {

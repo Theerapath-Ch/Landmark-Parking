@@ -49,28 +49,46 @@ const page = () => {
             const chk = document.getElementById(idParking) as HTMLInputElement
             chk.checked = false
         } else {
-            const lostReceipt = await fetch("/api/lost", {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ idParking: idParking })
-            })
-
-            const result = await lostReceipt.json()
-            //console.log(result);
-            const { success } = result
-            if (success) {
-                await Swal.fire({
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    showCloseButton: false,
-                    title: "บันทึกข้อมูลเรียบร้อย",
-                    icon: 'success',
-                    text: `ID : ${idParking} นี้ ได้ทำใบเสร็จหาย`,
-                    confirmButtonText: 'ตกลง',
-                    //showCancelButton: true,
+            const fine = await Swal.fire({
+                title: "ค่าปรับ",
+                input: "number",
+                inputLabel: "ระบุราคาค่าปรับ",
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) return "You need to write something!";
+                }
+            });
+            console.log(fine);
+            if (fine.isConfirmed) {
+                const lostReceipt = await fetch("/api/lost", {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        idParking: idParking,
+                        fine: parseInt(fine.value)
+                    })
                 })
 
-                router.push("/")
+                const result = await lostReceipt.json()
+                //console.log(result);
+                const { success } = result
+                if (success) {
+                    await Swal.fire({
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showCloseButton: false,
+                        title: "บันทึกข้อมูลเรียบร้อย",
+                        icon: 'success',
+                        text: `ID : ${idParking} นี้ ได้ทำใบเสร็จหาย`,
+                        confirmButtonText: 'ตกลง',
+                        //showCancelButton: true,
+                    })
+
+                    router.push("/")
+                }
+            } else {
+                const chk = document.getElementById(idParking) as HTMLInputElement
+                chk.checked = false
             }
         }
 
@@ -79,7 +97,7 @@ const page = () => {
     return (
         <div className="p-5">
             <div className="bg-gray-100 w-fit p-3 mb-2 text-2xl text-gray-700 px-3 py-1 rounded-lg  font-mono shadow-inner">
-                    กด <span className="text-gray-700  font-medium tracking-wide"> "/" </span> เพื่อย้อนกลับ
+                กด <span className="text-gray-700  font-medium tracking-wide"> "/" </span> เพื่อย้อนกลับ
             </div>
             <div className="bg-orange-200 rounded-2xl p-6 shadow-lg h-full ">
                 <div className="flex items-center justify-between mb-4">

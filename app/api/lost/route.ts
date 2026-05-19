@@ -7,8 +7,8 @@ export async function PUT(req: NextRequest) {
     try {
     
         const body = await req.json()
-        const { idParking } = body
-        console.log(idParking);
+        const { idParking , fine } = body
+        //console.log(idParking);
         
     
         const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
@@ -30,7 +30,7 @@ export async function PUT(req: NextRequest) {
                 },
                 data: {
                     status: true,
-                    price: 1000,
+                    price: fine,
                     remark: "lost",
                     discount: "No-Discount"
                 }
