@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useKeyboard } from "@/utils/useKeyboard";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import ModeIn from "@/component/ModeIn";
 import ModeOut from "@/component/ModeOut";
 import ModeLost from "@/component/ModeLost";
@@ -44,6 +43,11 @@ export default function Home() {
 
   }, [router, setAction])
 
+  const handleLogout = async () => {
+    await fetch("/api/logout", { method: "POST" })
+    router.push("/login")
+  }
+
   return (
 
     <div className="p-0 flex justify-center items-center">
@@ -60,15 +64,20 @@ export default function Home() {
           <Report data={data} />
         </div>
 
-        {/* <div>
-          <Link className="
-      px-4 py-2
-      border border-gray-300
-      rounded-full
-      text-gray-600
-      hover:border-red-500 hover:text-red-500
-      transition" href={"/login"}>Log OUT</Link>
-        </div> */}
+        <div>
+          <button
+            onClick={handleLogout}
+            className="
+              px-4 py-2
+              border border-gray-300
+              rounded-full
+              text-gray-600
+              hover:border-red-500 hover:text-red-500
+              transition"
+          >
+            LOG OUT
+          </button>
+        </div>
       </div>
     </div >
   );

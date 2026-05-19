@@ -4,6 +4,7 @@ import logo from "../../public/logo.png";
 import Image from "next/image";
 import { useKeyboard } from "@/utils/useKeyboard"
 import { useRouter } from "next/navigation"
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
     const router = useRouter()
@@ -20,7 +21,7 @@ export default function LoginPage() {
 
     useEffect(() => {
         setAction({
-            "Enter": () => logIn(usernameRef.current, passwordRef.current),
+            "Enter": () => register(usernameRef.current, passwordRef.current),
             "/": () => router.push("/"),
             // "2": () => router.push("/register"),
             "ArrowDown": () => inputRef2.current?.focus()
@@ -28,8 +29,7 @@ export default function LoginPage() {
         inputRef1.current?.focus()
     }, [])
 
-    const logIn = async (username: string, password: string) => {
-        
+    const register = async (username: string, password: string) => {
         if (!username || !password) {
             setError("กรุณากรอก ID และ Password")
             return
@@ -39,7 +39,7 @@ export default function LoginPage() {
         setError("")
 
         try {
-            const result = await fetch("/api/login", {
+            const result = await fetch("/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -49,11 +49,28 @@ export default function LoginPage() {
             })
 
             const data = await result.json()
+            console.log(data);
+
 
             if (data.message === "success") {
-                router.push("/")
+                Swal.fire({
+                    title: "บันทึกสำเร็จ",
+                    text: "กำลังไปหน้า Login",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                })
+
+                setTimeout(() => {
+                    router.push("/login")
+                }, 1500)
+
             } else {
-                setError(data.error ?? "ID หรือ Password ไม่ถูกต้อง")
+                Swal.fire({
+                    title: "บันทึกไม่สำเร็จ",
+                    text: data.error
+
+                })
             }
         } catch {
             setError("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง")
@@ -82,7 +99,7 @@ export default function LoginPage() {
                 shadow-2xl text-white ">
 
                 <div className="">
-                    <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
+                    <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
                     <div className="space-y-5">
                         <input
                             ref={inputRef1}
@@ -103,40 +120,27 @@ export default function LoginPage() {
                             onChange={(e) => { passwordRef.current = e.target.value }}
                         />
                         {/* Error message */}
-                        {error && (
+                        {/* {error && (
                             <p className="text-sm text-red-300 bg-red-500/20 
                             border border-red-400/40 rounded-lg px-3 py-2 text-center">
                                 {error}
                             </p>
-                        )}
-                        <div className="flex gap-3">
-                            <button
-                                onClick={() => logIn(usernameRef.current, passwordRef.current)}
-                                disabled={loading}
-                                className="w-full p-3 rounded-lg
-                                bg-gradient-to-r from-orange-500 to-red-500
-                                font-bold text-white
-                                hover:scale-105 transition duration-300
-                                shadow-lg hover:shadow-orange-500/50
-                                disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
-                            >
-                                {loading ? "กำลังเข้าสู่ระบบ..." : "Sign In"}
-                            </button>
-
-                            <button
-                                onClick={() => router.push("/register")}
-                                className="w-full p-3 rounded-lg
+                        )} */}
+                        <button
+                            onClick={() => router.push("/register")}
+                            className="w-full p-3 rounded-lg
                                 bg-gradient-to-r from-blue-500 to-blue-800
                                 font-bold text-white
                                 hover:scale-105 transition duration-300
                                 shadow-lg hover:shadow-blue-500/50"
-                            >
-                                Register
-                            </button>
-                        </div>
+                        >
+                            บันทึก
+                        </button>
                     </div>
                 </div>
             </div>
+
+
         </div>
     );
 }
