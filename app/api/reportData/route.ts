@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET(_: NextRequest) {
     try {
 
-        const today = new Date();
+        //const today = new Date();
 
         // const start = new Date(Date.UTC(
         //     today.getFullYear(),
