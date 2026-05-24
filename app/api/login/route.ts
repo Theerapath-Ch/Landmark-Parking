@@ -24,7 +24,7 @@ export async function POST(req: Request) {
             }
         })
 
-        console.log(user)
+        //console.log(user)
 
         // เช็ก user
         if (!user || user.pass !== pass) {

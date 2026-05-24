@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
         const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
         const id = now.toISOString().replace(/[-:.TZ]/g, "") // YYYYMMDDHHMMSSmmm
-        console.log(id);
+        //console.log(id);
 
         const car = await prisma.parking.create({
             data: {
@@ -28,13 +28,13 @@ export async function POST(req: Request) {
         if (car) {
             const receipt = await prisma.receipt.create({
                 data: {
-                    parkingId: id
+                    parkingId: id,
                 }
             })
             return NextResponse.json({
                 message: "Success",
                 infoCar: car,
-                infoReceipt : receipt
+                infoReceipt: receipt
             })
         }
 

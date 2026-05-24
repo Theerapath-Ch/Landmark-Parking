@@ -5,12 +5,12 @@ import { prisma } from "@/lib/prisma";
 
 export async function PUT(req: NextRequest) {
     try {
-    
+
         const body = await req.json()
-        const { idParking , fine } = body
+        const { idParking, fine } = body
         //console.log(idParking);
-        
-    
+
+
         const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
         //console.log("time : ", now);
 
@@ -24,6 +24,11 @@ export async function PUT(req: NextRequest) {
         })
 
         if (updatedTimeOut) {
+            const getMaxId = await prisma.checktime.aggregate({
+                _max: {
+                    id: true,
+                },
+            })
             await prisma.receipt.update({
                 where: {
                     parkingId: idParking
@@ -32,7 +37,8 @@ export async function PUT(req: NextRequest) {
                     status: true,
                     price: fine,
                     remark: "lost",
-                    discount: "No-Discount"
+                    discount: "No-Discount",
+                    checktimeID:getMaxId._max.id
                 }
             })
         }

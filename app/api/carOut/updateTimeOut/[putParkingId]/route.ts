@@ -12,6 +12,9 @@ export async function PUT(req: NextRequest,
         const { discount } = body
         // console.log(discount);
 
+
+
+
         const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
         //console.log("time : ", now);
 
@@ -41,6 +44,13 @@ export async function PUT(req: NextRequest,
             price = calculatePrice(in_at, out_at, discount)
         }
 
+        const getMaxId = await prisma.checktime.aggregate({
+            _max: {
+                id: true,
+            },
+        })
+        //console.log(getMaxId._max.id);
+
         await prisma.receipt.update({
             where: {
                 parkingId: putParkingId
@@ -48,13 +58,10 @@ export async function PUT(req: NextRequest,
             data: {
                 status: true,
                 price: price,
-                discount: discount
+                discount: discount,
+                checktimeID:getMaxId._max.id
             }
         })
-
-
-        //console.log(updatedTimeOut);
-
 
         return NextResponse.json(
             {

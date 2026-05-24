@@ -22,17 +22,18 @@ export async function GET(_: NextRequest) {
         //     23, 59, 59
         // ));
 
-        const data = await prisma.parking.findMany({
-            where: {
-                // in_at: {
-                //     gte: start,
-                //     lte: end
-                // },
-                out_at: null 
-            },
+        // const data = await prisma.parking.findMany({
+        //     where: {
+        //         // in_at: {
+        //         //     gte: start,
+        //         //     lte: end
+        //         // },
+        //         out_at: null 
+        //     },
 
-        })
-        console.log(data);
+        // })
+        const data = await prisma.parking.findMany()
+        //console.log(data);
 
         return NextResponse.json(
             {

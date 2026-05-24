@@ -15,12 +15,24 @@ datasource db {
 }
 
 model admin {
-  id       Int    @id @default(autoincrement())
-  name     String?
-  lastname String?
-  username  String  @unique
-  pass     Int
-  createAt  DateTime
+  id         Int         @id @default(autoincrement())
+  name       String?
+  lastname   String?
+  username   String?      @unique
+  pass       Int
+  createAt   DateTime
+  checktimes checktime[]
+}
+
+model checktime {
+  id       Int       @id @default(autoincrement())
+  username String?
+  chkIn    DateTime  @default(now())
+  chkOut   DateTime?
+  shift    String
+
+  admin    admin?     @relation(fields: [username], references: [username])
+  receipts receipt[] @relation("ChecktimeReceipts")
 }
 
 model parking {
@@ -40,4 +52,7 @@ model receipt {
 
   parkingId String  @unique
   parking   parking @relation(fields: [parkingId], references: [id])
+
+  checktimeID Int?
+  checktime   checktime? @relation("ChecktimeReceipts", fields: [checktimeID], references: [id])
 }

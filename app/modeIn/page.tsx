@@ -59,7 +59,6 @@ const modeIn = () => {
     const data = await res.json()
     const { message, infoCar, infoReceipt } = data
     // console.log(infoCar.in_at)
-
     if (message == 'no-plate') {
       await Swal.fire({
         position: "top-end",
@@ -67,8 +66,6 @@ const modeIn = () => {
         title: 'กรุณากรออกเลขทะเบียน',
       })
     }
-
-
     if (message == "Success") {
       const date = infoCar.in_at.split('T')[0]
       const time = infoCar.in_at.split('T')[1].split('.')[0]

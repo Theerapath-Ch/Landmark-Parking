@@ -69,7 +69,7 @@ const page = () => {
                 body: JSON.stringify({ discount: discount })
             })
             const resUpdate = await timeOutUpdate.json()
-            console.log(resUpdate);
+            //console.log(resUpdate);
 
             const { success, message } = resUpdate
             if (!success) {
@@ -89,7 +89,7 @@ const page = () => {
             }
             //console.log(resGet);
             const { data } = resGet
-            console.log(data);
+            //console.log(data);
 
 
             if (success) {
