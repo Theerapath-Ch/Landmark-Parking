@@ -54,8 +54,11 @@ const page = () => {
                 input: "number",
                 inputLabel: "ระบุราคาค่าปรับ",
                 showCancelButton: true,
+                customClass: {
+                    input: "no-spinner"
+                },
                 inputValidator: (value) => {
-                    if (!value) return "You need to write something!";
+                    if (!value) return "โปรดระบุราคาที่ปรับ";
                 }
             });
             console.log(fine);
