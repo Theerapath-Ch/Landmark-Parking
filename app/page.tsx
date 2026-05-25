@@ -20,12 +20,14 @@ interface ReportData {
 }
 interface nextShift {
   shift_no: string,
-  date: string,
+  // date: string,
   login: string,
   logout: string,
   cashier: string,
-  car_count: number,
-  discount_amount: number,
+  amountCar: number,
+  amountLandmark: number,
+  amountNodiscount: number,
+  amountLost: number,
   totalPrice: number
 }
 
@@ -45,14 +47,18 @@ export default function Home() {
 
   const [nextShift, setNextShift] = useState<nextShift>({
     shift_no: "",
-    date: "",
+    // date: "",
     login: "",
     logout: "",
     cashier: "",
-    car_count: 0,
-    discount_amount: 0,
+    amountCar: 0,
+    amountLandmark: 0,
+    amountNodiscount: 0,
+    amountLost: 0,
     totalPrice: 0
   })
+
+  const [shouldPrint, setShouldPrint] = useState(false);
 
   useEffect(() => {
     setAction({
@@ -71,7 +77,12 @@ export default function Home() {
     }
     getReportData()
 
-  }, [router, setAction])
+    if (nextShift && shouldPrint) {
+      handlePrint();
+      setShouldPrint(false);
+    }
+
+  }, [router, setAction, nextShift, shouldPrint, handlePrint])
 
   const handleLogout = async () => {
     const result = await Swal.fire({
@@ -91,25 +102,64 @@ export default function Home() {
     })
 
     const res = await chk.json()
-    console.log(res.nextShift[0].checktime.chkIn);
+    console.log("nextShift :",res.nextShift);
 
-    // const {checktimeID , } = res.nexShift
+    type Shift = {
+      discount: string | null;
+      remark: string | null;
+      price: number;
+    };
+
+    const summary = {
+      amountCar: 0,
+      amountLandmark: 0,
+      amountNodiscount: 0,
+      amountLost: 0,
+      sumPrice: 0,
+    };
+
+    res.nextShift.forEach(({ discount, remark, price }: Shift) => {
+      if (discount === "Landmark") {
+        summary.amountLandmark++;
+      } else if (discount === "No-Discount") {
+        summary.amountNodiscount++;
+      }
+      if (remark === "lost") {
+        summary.amountLost++;
+      }
+      summary.amountCar++;
+      summary.sumPrice += price;
+    });
+    // console.log(summary.amountCar);
+    // console.log(summary.amountLandmark);
+    // console.log(summary.amountNodiscount);
+    // console.log(summary.amountLost);
+    // console.log(summary.sumPrice);
+
+    const { id, chkIn, chkOut, shift } = res.chkTime
+    // console.log(id);
+    // console.log(chkIn);
+    // console.log(chkOut);
+    // console.log(shift);
+
 
     if (res.message === "success") {
-      // setNextShift({
-      //   shift_no: res.nextShift.checktimeID,
-      //   date: res.nextShift.checktime.chkIn,
-      //   login: res.nextShift.checktime.chkIn,
-      //   logout: res.nextShift.checktime.chkOut,
-      //   cashier: res.nextShift.checktime.shift,
-      //   car_count: 0,
-      //   discount_amount: 0,
-      //   totalPrice: 0
-      // })
-      handlePrint()
+      setNextShift({
+        shift_no: id,
+        // date: chkIn,
+        login: chkIn,
+        logout: chkOut,
+        cashier: shift,
+        amountCar: summary.amountCar,
+        amountLandmark: summary.amountLandmark,
+        amountNodiscount: summary.amountNodiscount,
+        amountLost: summary.amountLost,
+        totalPrice: summary.sumPrice
+      })
     }
+    setShouldPrint(true);
 
-    //router.push("/login")
+    router.push("/login")
   }
 
   return (
@@ -145,12 +195,14 @@ export default function Home() {
           <Logout
             ref={logOutRef}
             shift_no={nextShift.shift_no}
-            date={nextShift.date}
+            // date={nextShift.date}
             login={nextShift.login}
             logout={nextShift.logout}
             cashier={nextShift.cashier}
-            car_count={nextShift.car_count}
-            discount_amount={nextShift.discount_amount}
+            amountCar={nextShift.amountCar}
+            amountLandmark={nextShift.amountLandmark}
+            amountNodiscount={nextShift.amountNodiscount}
+            amountLost={nextShift.amountLost}
             totalPrice={nextShift.totalPrice}
           />
         </div>

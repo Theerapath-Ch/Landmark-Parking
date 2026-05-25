@@ -1,7 +1,6 @@
 // components/Receipt.tsx
 import { forwardRef } from "react";
-import logo from "../public/logo.png";
-import Image from "next/image";
+
 
 interface PrintDataOut {
     idParking: string

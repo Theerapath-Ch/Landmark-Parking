@@ -8,10 +8,13 @@ export async function POST(req: Request) {
         //console.log(body)
         const { username, shift } = body
 
+         const now = new Date(Date.now() + 7 * 60 * 60 * 1000)
+
         const user = await prisma.checktime.create({
             data: {
                 username: username,
-                shift: shift
+                shift: shift,
+                chkIn: now
             }
         })
         console.log(user);

@@ -4,40 +4,47 @@ import { forwardRef } from "react";
 
 interface nextShift {
     shift_no: string,
-    date: string,
+    // date: string,
     login: string,
     logout: string,
     cashier: string,
-    car_count: number,
-    discount_amount: number,
+    amountCar: number,
+    amountLandmark: number,
+    amountNodiscount: number,
+    amountLost: number,
     totalPrice: number
 }
 
 const Logout = forwardRef<HTMLDivElement, nextShift>((props, ref) => {
-    // console.log(props.in_at);
+    //console.log("props :" , props.shift_no);
+    const dateIn = props.login?.split("T")[0] ?? "";
+    const timeIn = props.login?.split("T")[1]?.split(".")[0] ?? "";
+    const dateOut = props.logout?.split("T")[0] ?? "";
+    const timeOut = props.logout?.split("T")[1]?.split(".")[0] ?? "";
+
+
     return (
         <div ref={ref} className="p-4 border text-sm w-[300px] bg-white text-black text-left">
             <div className="flex gap-5">
-                {/* <Image src={logo} alt="logo" width={50}
-                    height={50} /> */}
                 <div>
                     <h2 className="text-center font-bold text-lg">HUAI KHWANG ESPORT</h2>
-                    {/* <p className="text-center">Tel: 099-999-9999</p> */}
                 </div>
             </div>
             <hr className="my-2" />
 
-            <div>
+            <div className="w-full">
                 <p>shift_No : {props.shift_no}</p>
-                <p>date :  {props.date}</p>
-                <p>login : {props.login}</p>
-                <p>logout :{props.logout} </p>
+                <p>date :  {dateIn} {timeIn}</p>
+                <p>login :  {dateIn} {timeIn}</p>
+                <p>logout : {dateOut} {timeOut} </p>
                 <p>cashier : {props.cashier}</p>
-                <p>car_count :{props.car_count} </p>
-                <p>discount_amount :{props.discount_amount} </p>
-                <p>totalPrice :{props.totalPrice} </p>
+                <p>จำนวนรถทั้งหมด : {props.amountCar} </p>
+                <p>จำนวนที่ใช้ ส่วนลด Landmark : {props.amountLandmark} </p>
+                <p>จำนวนที่ไม้ได้ไช้ส่วนลด : {props.amountNodiscount} </p>
+                <p>จำนวนใบเสร็จหาย : {props.amountLost} </p>
+                <p>ผลรวมรายได้ ทั้งหมด {props.amountCar} คัน  : {props.totalPrice} บาท</p>
             </div>
-            <hr className="my-2" />
+            {/* <hr className="my-2" /> */}
             {/* <div>
                 <p className=" text-4xl">ราคา : {props.price} บาท </p>
             </div> */}

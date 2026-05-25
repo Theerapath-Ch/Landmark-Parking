@@ -37,7 +37,6 @@ export async function PUT(req: NextRequest) {
                     status: true,
                     price: fine,
                     remark: "lost",
-                    discount: "No-Discount",
                     checktimeID:getMaxId._max.id
                 }
             })
