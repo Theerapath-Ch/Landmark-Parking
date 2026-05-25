@@ -163,7 +163,7 @@ export default function LoginPage() {
                                     {loading ? "กำลังเข้าสู่ระบบ..." : "Sign In"}
                                 </button>
 
-                                <button
+                                {/* <button
                                     onClick={() => router.push("/register")}
                                     className="w-full p-3 rounded-lg
                                 bg-gradient-to-r from-blue-500 to-blue-800
@@ -172,7 +172,7 @@ export default function LoginPage() {
                                 shadow-lg hover:shadow-blue-500/50"
                                 >
                                     Register
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </div>
