@@ -12,7 +12,7 @@ const Day = () => {
             {/* Background number (ด้านขวา) */}
             <div className="absolute top-1/2 right-0 -translate-y-1/2 pr-4">
                 <span className="text-[400px] font-extrabold text-white opacity-50 leading-none select-none">
-                    1
+                    
                 </span>
             </div>
 
