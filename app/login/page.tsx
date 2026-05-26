@@ -172,7 +172,7 @@ export default function LoginPage() {
                                 shadow-lg hover:shadow-blue-500/50"
                                 >
                                     Register
-                                </button> */}
+                                </button>  */}
                             </div>
                         </div>
                     </div>
