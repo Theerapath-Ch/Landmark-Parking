@@ -49,7 +49,7 @@ export default function LoginPage() {
             })
 
             const data = await result.json()
-            console.log(data);
+            //console.log(data);
 
 
             if (data.message === "success") {
@@ -127,7 +127,7 @@ export default function LoginPage() {
                             </p>
                         )} */}
                         <button
-                            onClick={() => router.push("/register")}
+                            onClick={() => register(usernameRef.current, passwordRef.current)}
                             className="w-full p-3 rounded-lg
                                 bg-gradient-to-r from-blue-500 to-blue-800
                                 font-bold text-white

@@ -6,7 +6,9 @@ import { useKeyboard } from "@/utils/useKeyboard"
 import { useRouter } from "next/navigation"
 import Day from "@/component/Day";
 import Night from "@/component/Night";
+
 import Swal from "sweetalert2";
+import Admin from "@/component/Admin";
 
 export default function LoginPage() {
     const router = useRouter()
@@ -66,7 +68,7 @@ export default function LoginPage() {
                 const res = await checkTime.json()
                 if (res.message === "success") {
                     console.log(res.userId);
-                    
+
                     setShift("")
                     router.push("/")
                 } else {
@@ -103,12 +105,17 @@ export default function LoginPage() {
 
             {/* Card */}
             {!shift && (
-                <div className="flex gap-3">
-                    <div onClick={() => setShift("Day")}>
-                        <Day />
+                <div className="flex gap-8 justify-center items-center">
+                    <div>
+                        <div onClick={() => setShift("Day")}>
+                            <Day />
+                        </div>
+                        <div onClick={() => setShift("Night")}>
+                            <Night />
+                        </div>
                     </div>
-                    <div onClick={() => setShift("Night")}>
-                        <Night />
+                    <div className="w-fit" onClick={() => setShift("Admin")}>
+                        <Admin />
                     </div>
                 </div>
             )}
@@ -163,7 +170,7 @@ export default function LoginPage() {
                                     {loading ? "กำลังเข้าสู่ระบบ..." : "Sign In"}
                                 </button>
 
-                                {/* <button
+                                <button
                                     onClick={() => router.push("/register")}
                                     className="w-full p-3 rounded-lg
                                 bg-gradient-to-r from-blue-500 to-blue-800
@@ -172,7 +179,7 @@ export default function LoginPage() {
                                 shadow-lg hover:shadow-blue-500/50"
                                 >
                                     Register
-                                </button>  */}
+                                </button> 
                             </div>
                         </div>
                     </div>

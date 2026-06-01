@@ -11,6 +11,7 @@ import { useReactToPrint } from "react-to-print";
 import Logout from "@/component/Logout";
 
 
+
 interface ReportData {
   id: string,
   plate_number: string,
@@ -31,12 +32,10 @@ interface nextShift {
   totalPrice: number
 }
 
-
 export default function Home() {
 
-
-  const router = useRouter()
   const { setAction } = useKeyboard()
+  const router = useRouter()
 
   const logOutRef = useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({
@@ -61,20 +60,15 @@ export default function Home() {
   const [shouldPrint, setShouldPrint] = useState(false);
 
   useEffect(() => {
+
+      chkRole()
+
     setAction({
       "1": () => router.push("/modeIn"),
       "2": () => router.push("/modeOut"),
       "3": () => router.push("/modeLost"),
     })
 
-    const getReportData = async () => {
-      const getData = await fetch("/api/reportData")
-      const res = await getData.json()
-      // console.log(res);
-      const { data } = res
-      // console.log(data);
-      setData(data)
-    }
     getReportData()
 
     if (nextShift && shouldPrint) {
@@ -82,7 +76,25 @@ export default function Home() {
       setShouldPrint(false);
     }
 
+
+
   }, [router, setAction, nextShift, shouldPrint, handlePrint])
+
+  const chkRole = async () => {
+    const chkRole = await fetch("/api/chkRole")
+    const res = await chkRole.json()
+   // console.log("chkRole :", res);
+    const { data } = res
+    if (data.shift == "Admin") router.push("/reportAdmin")
+
+  }
+  const getReportData = async () => {
+    const getData = await fetch("/api/reportData")
+    const res = await getData.json()
+    //console.log(res);
+    const { data } = res
+    setData(data)
+  }
 
   const handleLogout = async () => {
     const result = await Swal.fire({
@@ -102,7 +114,7 @@ export default function Home() {
     })
 
     const res = await chk.json()
-    console.log("nextShift :",res.nextShift);
+    // console.log("nextShift :",res.nextShift);
 
     type Shift = {
       discount: string | null;
