@@ -15,7 +15,8 @@ export async function GET(_: NextRequest,
                select: {
                   id: true,
                   price:true,
-                  discount:true
+                  discount:true,
+                  remark:true
                }
             }
          }
