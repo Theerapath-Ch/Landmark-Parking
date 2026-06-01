@@ -67,7 +67,7 @@ const modeIn = () => {
       })
     }
     if (message == "Success") {
-      const date = infoCar.in_at.split('T')[0]
+      const date = infoCar.in_at.split('T')[0] 
       const time = infoCar.in_at.split('T')[1].split('.')[0]
       setPrintDataIn({
         idParking: infoCar.id,

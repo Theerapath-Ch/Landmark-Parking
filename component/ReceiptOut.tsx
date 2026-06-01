@@ -11,7 +11,7 @@ interface PrintDataOut {
     idReceipt: string
     price: number,
     discount: string
-
+    remark: string
 }
 
 const Receipt_Out = forwardRef<HTMLDivElement, PrintDataOut>((props, ref) => {
@@ -35,7 +35,15 @@ const Receipt_Out = forwardRef<HTMLDivElement, PrintDataOut>((props, ref) => {
                 <p>DATE CAR-IN :{props.date} </p>
                 <p>TIME CAR-IN : {props.time_In}</p>
                 <p>TIME CAR-OUT :{props.time_Out} </p>
-                <p>DISCOUNT :{props.discount} </p>
+                <p>DISCOUNT :{props.discount =="No-Discount" || props.remark == "lost"
+                    ? "-"
+                    :props.discount
+                    } </p>
+                <p>REMARK :{props.remark == "lost"
+                    ? "ใบเสร็จหาย"
+                    : ""
+                }
+                </p>
             </div>
             <hr className="my-2" />
             <div>

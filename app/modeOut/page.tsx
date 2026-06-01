@@ -15,7 +15,8 @@ interface PrintDataOut {
     time_Out: string
     idReceipt: string
     price: number,
-    discount: string
+    discount: string,
+    remark:string
 }
 
 interface ResGet {
@@ -29,6 +30,7 @@ interface ResGet {
             id: string,
             price: number,
             discount: string
+            remark: string
         }
     }
 }
@@ -79,8 +81,6 @@ const page = () => {
                 })
                 router.push("/")
             }
-
-
             //console.log("timeOutUpdate :",timeOutUpdate);
             let resGet = {} as ResGet
             if (timeOutUpdate) {
@@ -93,7 +93,7 @@ const page = () => {
 
 
             if (success) {
-                console.log(data.plate_number);
+                //console.log(data.plate_number);
                 const dateIn = data.in_at.split('T')[0]
                 const timeIn = data.in_at.split('T')[1].split('.')[0]
                 const dateOut = data.out_at.split('T')[1].split('.')[0]
@@ -109,7 +109,8 @@ const page = () => {
                     time_Out: timeOut,
                     idReceipt: data.receipt.id,
                     price: data.receipt.price,
-                    discount: data.receipt.discount
+                    discount: data.receipt.discount,
+                    remark: data.receipt.remark
                 }
                 await Swal.fire({
                     allowOutsideClick: false,
@@ -130,6 +131,7 @@ const page = () => {
                                 idReceipt={printDataOut.idReceipt}
                                 price={printDataOut.price}
                                 discount={printDataOut.discount}
+                                remark={printDataOut.remark}
                             />)
                         }
                     }

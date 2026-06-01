@@ -9,7 +9,7 @@ interface ReportData {
 }
 
 const Report = ({ data }: { data: ReportData[] }) => {
-    console.log("data :" , data);
+    //console.log("data :" , data);
 
     return (
         <div className="bg-blue-100 rounded-2xl p-6 shadow-lg h-full">
@@ -54,7 +54,7 @@ const Report = ({ data }: { data: ReportData[] }) => {
                                         </td>
 
                                         <td className="px-4 py-3">
-                                            {item.in_at.split("T")[1].split(".")[0]}
+                                            {item.in_at.split("T")[0]} {item.in_at.split("T")[1].split(".")[0]}
                                         </td>
 
                                         <td className="px-4 py-3 text-center">
