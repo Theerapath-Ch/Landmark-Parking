@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 
-interface ReportDataAdmin {
+interface ReportDataCar {
     id: string,
     plate_number: string,
     in_at: string,
@@ -19,6 +19,18 @@ interface ReportDataAdmin {
         discount: string
         remark: string
     }
+}
+interface ReportDataShift {
+    id: string,
+    chkIn: string,
+    chkOut: string,
+    shift: string,
+    username: string,
+    receipts: {
+        price: number,
+        discount: string
+        remark: string
+    }[]
 }
 
 interface prinDataCar {
@@ -93,9 +105,9 @@ export default function AdminPage() {
     const [activeTab, setActiveTab] = useState("car");
 
 
-    const [dataCar, setDataCar] = useState<ReportDataAdmin[]>([])
+    const [dataCar, setDataCar] = useState<ReportDataCar[]>([])
 
-    const [dataShift, setDataShift] = useState([]);
+    const [dataShift, setDataShift] = useState<ReportDataShift[]>([]);
 
 
     const dayShift = dataShift.filter((item) => item.shift === "Day");
@@ -125,8 +137,8 @@ export default function AdminPage() {
             })
         })
         const res = await getData.json()
-        // console.log(res);
         const { dataCar, dataShift } = res
+        console.log(dataShift);
         let allItems = 0
         let carIn = 0
         let sumPrice = 0

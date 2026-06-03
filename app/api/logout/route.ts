@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json()
         const { idReceipt } = body
-        console.log("idReceipt :", idReceipt);
+        //console.log("idReceipt :", idReceipt);
 
         const getMaxId = await prisma.checktime.aggregate({
             _max: {
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
             },
         })
 
-        console.log(chkTime);
+        //console.log(chkTime);
 
         const response = NextResponse.json(
             {
