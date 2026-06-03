@@ -106,7 +106,6 @@ export default function AdminPage() {
 
 
     const [dataCar, setDataCar] = useState<ReportDataCar[]>([])
-
     const [dataShift, setDataShift] = useState<ReportDataShift[]>([]);
 
 
@@ -127,7 +126,7 @@ export default function AdminPage() {
         }
     }, [shouldPrintShift, prinDataShift]);
 
-    const getDataReportAdmin = async (startDate: string, endDate: string) => {
+    const getDataReportDataCar = async (startDate: string, endDate: string) => {
         const getData = await fetch("/api/reportDataAdmin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -138,7 +137,7 @@ export default function AdminPage() {
         })
         const res = await getData.json()
         const { dataCar, dataShift } = res
-        console.log(dataShift);
+        // console.log(dataCar);
         let allItems = 0
         let carIn = 0
         let sumPrice = 0
@@ -335,7 +334,7 @@ export default function AdminPage() {
 
                     <div className="flex items-end">
                         <button
-                            onClick={() => getDataReportAdmin(startDate, endDate)}
+                            onClick={() => getDataReportDataCar(startDate, endDate)}
                             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
                         >
                             ค้นหา
@@ -369,7 +368,7 @@ export default function AdminPage() {
                 </div>
             </div>
 
-            {activeTab === "car" && (<div className="reportAdmin1 ">
+            {activeTab === "car" && (<div className="reportAdmin1 p-2 ">
                 {/* Summary */}
                 <div className="grid md:grid-cols-3 gap-4 mb-6">
                     <div className="bg-white rounded-xl shadow p-5">
@@ -400,17 +399,20 @@ export default function AdminPage() {
                     </div>
                 </div>
                 {/* Table */}
-                <div className="bg-white rounded-xl shadow">
+                <div className="bg-white rounded-xl shadow-2xl ">
                     <div className="p-4 border-b">
                         <h2 className="font-semibold">
                             ประวัติการจอดรถ วันที่ {startDate} - {endDate}
                         </h2>
                     </div>
 
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto ">
                         <table className="w-full ">
                             <thead className="bg-gray-5 ">
                                 <tr>
+                                    {/* <th className="p-3">
+
+                                    </th> */}
                                     <th className="p-3">
                                         ID
                                     </th>
@@ -445,6 +447,7 @@ export default function AdminPage() {
                                 {dataCar.map((item, i) => {
                                     return (
                                         <tr key={i} className="border-t">
+                                            {/* <td className="bg-red-500 w-0"></td> */}
                                             <td className="p-3">
                                                 {item.id}
                                             </td>
