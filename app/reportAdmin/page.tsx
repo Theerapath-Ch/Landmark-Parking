@@ -556,11 +556,14 @@ export default function AdminPage() {
                                         0
                                     );
                                     return (
-                                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:shadow-md transition" onClick={() => printReceiptShift(item.id)}>
+                                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:shadow-md transition flex justify-between" onClick={() => printReceiptShift(item.id)}>
                                             <div className="text-sm text-slate-600 space-y-1">
                                                 <p>เข้างาน : {dateIn} {timeIn}</p>
                                                 <p>ออกงาน : {dateOut} {timeOut}</p>
                                                 <p>ผลรวมรายได้ ทั้งหมด : {price} ฿</p>
+                                            </div>
+                                            <div className=" flex items-end  ">
+                                                <div className="text-sm text-slate-600 border rounded-2xl px-2">กดเพื่อ print</div>
                                             </div>
                                         </div>
                                     )
@@ -588,13 +591,16 @@ export default function AdminPage() {
                                         0
                                     );
                                     return (
-                                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:shadow-md transition"
+                                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-4 hover:shadow-md transition flex justify-between"
                                             onClick={() => printReceiptShift(item.id)}
                                         >
                                             <div className="text-sm text-slate-600 space-y-1">
                                                 <p>เข้างาน : {dateIn} {timeIn}</p>
                                                 <p>ออกงาน : {dateOut} {timeOut}</p>
                                                 <p>ผลรวมรายได้ ทั้งหมด : {price} ฿</p>
+                                            </div>
+                                            <div className=" flex items-end  ">
+                                                <div className="text-sm text-slate-600 border rounded-2xl px-2">กดเพื่อ print</div>
                                             </div>
                                         </div>
                                     )
