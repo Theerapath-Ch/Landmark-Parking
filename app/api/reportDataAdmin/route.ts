@@ -7,16 +7,20 @@ export async function POST(req: NextRequest) {
     try {
 
         const body = await req.json()
-        console.log(body)
+        //console.log(body)
         const { startDate, endDate } = body
 
-        const start = new Date(`${startDate}T00:00:00.000Z`)
+        const start = startDate
+            ? new Date(`${startDate}T00:00:00.000Z`)
+            : new Date(Date.now() + 7 * 60 * 60 * 1000);
         //console.log(start);
 
-        const end = new Date(`${endDate}T23:59:59.999Z`)
+        const end = endDate
+            ? new Date(`${endDate}T23:59:59.999Z`)
+            : new Date(Date.now() + 7 * 60 * 60 * 1000);
         //console.log(end);
 
-        const data = await prisma.parking.findMany({
+        const dataCar = await prisma.parking.findMany({
             where: {
                 in_at: {
                     gte: start,
@@ -33,12 +37,36 @@ export async function POST(req: NextRequest) {
                 }
             }
         })
-        console.log(data);
+        //console.log(dataCar);
+
+        const dataShift = await prisma.checktime.findMany({
+            where: {
+                chkIn: {
+                    gte: start,
+                    lte: end,
+                },
+                shift: {
+                    in: ["Day", "Night"],
+                }
+            },
+            include:{
+                receipts: {
+                    select: {
+                        price:true,
+                        discount:true,
+                        remark:true
+                    }
+                }
+            }
+        })
+        //console.log(dataShift);
+        
 
         return NextResponse.json(
             {
                 success: true,
-                data: data,
+                dataCar: dataCar,
+                dataShift: dataShift,
                 status: 200
             }
         )

@@ -4,7 +4,6 @@ import { forwardRef } from "react";
 
 interface nextShift {
     shift_no: string,
-    // date: string,
     login: string,
     logout: string,
     cashier: string,

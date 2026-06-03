@@ -61,7 +61,7 @@ export default function Home() {
 
   useEffect(() => {
 
-      chkRole()
+    chkRole()
 
     setAction({
       "1": () => router.push("/modeIn"),
@@ -83,7 +83,7 @@ export default function Home() {
   const chkRole = async () => {
     const chkRole = await fetch("/api/chkRole")
     const res = await chkRole.json()
-   // console.log("chkRole :", res);
+    // console.log("chkRole :", res);
     const { data } = res
     if (data.shift == "Admin") router.push("/reportAdmin")
 
@@ -110,7 +110,10 @@ export default function Home() {
     if (!result.isConfirmed) return
 
     const chk = await fetch("/api/logout", {
-      method: "POST"
+      method: "POST",
+      body: JSON.stringify({
+        idReceipt: null
+      })
     })
 
     const res = await chk.json()
@@ -142,18 +145,8 @@ export default function Home() {
       summary.amountCar++;
       summary.sumPrice += price;
     });
-    // console.log(summary.amountCar);
-    // console.log(summary.amountLandmark);
-    // console.log(summary.amountNodiscount);
-    // console.log(summary.amountLost);
-    // console.log(summary.sumPrice);
-
+    
     const { id, chkIn, chkOut, shift } = res.chkTime
-    // console.log(id);
-    // console.log(chkIn);
-    // console.log(chkOut);
-    // console.log(shift);
-
 
     if (res.message === "success") {
       setNextShift({
@@ -170,7 +163,6 @@ export default function Home() {
       })
     }
     setShouldPrint(true);
-
     router.push("/login")
   }
 
