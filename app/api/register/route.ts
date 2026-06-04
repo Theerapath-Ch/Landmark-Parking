@@ -40,7 +40,7 @@ export async function POST(req: Request) {
             }
         })
 
-        console.log(user)
+        //console.log(user)
 
         return NextResponse.json({
             message: "success",
