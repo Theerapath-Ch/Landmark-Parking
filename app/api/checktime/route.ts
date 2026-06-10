@@ -17,7 +17,7 @@ export async function POST(req: Request) {
                 chkIn: now
             }
         })
-        console.log(user);
+        //console.log(user);
 
 
         const response = NextResponse.json({
