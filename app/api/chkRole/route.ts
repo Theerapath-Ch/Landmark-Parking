@@ -17,7 +17,7 @@ export async function GET(_: NextRequest) {
                 id: 'desc'
             },
             select: {
-                shift: true
+                username: true
             }
         })
         //console.log(data);

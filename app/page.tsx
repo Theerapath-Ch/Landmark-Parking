@@ -28,6 +28,7 @@ interface nextShift {
   amountCar: number,
   amountLandmark: number,
   amountNodiscount: number,
+  amountLotus: number,
   amountLost: number,
   totalPrice: number
 }
@@ -53,6 +54,7 @@ export default function Home() {
     amountCar: 0,
     amountLandmark: 0,
     amountNodiscount: 0,
+    amountLotus: 0,
     amountLost: 0,
     totalPrice: 0
   })
@@ -85,7 +87,7 @@ export default function Home() {
     const res = await chkRole.json()
     // console.log("chkRole :", res);
     const { data } = res
-    if (data.shift == "Admin") router.push("/reportAdmin")
+    if (data.username == "admin") router.push("/reportAdmin")
 
   }
   const getReportData = async () => {
@@ -129,6 +131,7 @@ export default function Home() {
       amountCar: 0,
       amountLandmark: 0,
       amountNodiscount: 0,
+      amountLotus: 0,
       amountLost: 0,
       sumPrice: 0,
     };
@@ -138,14 +141,18 @@ export default function Home() {
         summary.amountLandmark++;
       } else if (discount === "No-Discount") {
         summary.amountNodiscount++;
+      } else if (discount === "Lotus") {
+        summary.amountLotus++;
       }
+
       if (remark === "lost") {
         summary.amountLost++;
       }
+      
       summary.amountCar++;
       summary.sumPrice += price;
     });
-    
+
     const { id, chkIn, chkOut, shift } = res.chkTime
 
     if (res.message === "success") {
@@ -158,6 +165,7 @@ export default function Home() {
         amountCar: summary.amountCar,
         amountLandmark: summary.amountLandmark,
         amountNodiscount: summary.amountNodiscount,
+        amountLotus: summary.amountLotus,
         amountLost: summary.amountLost,
         totalPrice: summary.sumPrice
       })
@@ -206,6 +214,7 @@ export default function Home() {
             amountCar={nextShift.amountCar}
             amountLandmark={nextShift.amountLandmark}
             amountNodiscount={nextShift.amountNodiscount}
+            amountLotus={nextShift.amountLotus}
             amountLost={nextShift.amountLost}
             totalPrice={nextShift.totalPrice}
           />

@@ -16,7 +16,7 @@ interface PrintDataOut {
     idReceipt: string
     price: number,
     discount: string,
-    remark:string
+    remark: string
 }
 
 interface ResGet {
@@ -50,6 +50,7 @@ const page = () => {
     useEffect(() => {
         setAction({
             "Enter": () => chkDataReceipt(value),
+            "2": () => updateTimeOut(value, "Lotus"),
             "1": () => updateTimeOut(value, "Landmark"),
             "0": () => updateTimeOut(value, "No-Discount"),
             "/": () => router.push("/")
@@ -203,56 +204,66 @@ const page = () => {
                                     🎟 Discount
                                 </h1>
 
-                                {/* Brand */}
+                                {/* LANMARK */}
+                                <div className="relative bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-4xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
+
+                                    {/* Paper texture overlay */}
+                                    <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
+
+                                    {/* Content */}
+                                    <span className="relative z-10 tracking-wide">LANDMARK</span>
+
+                                    {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
+                                    <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
+
+                                    {/* Badge */}
+                                    <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-yellow-300">
+                                        1
+                                    </div>
+
+                                </div>
+
+                                {/* LOTUS */}
                                 <div className="relative bg-gradient-to-r from-green-400 to-emerald-600 text-white text-4xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
 
                                     {/* Paper texture overlay */}
                                     <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
 
                                     {/* Content */}
-                                    <span className="relative z-10 tracking-wide">LANMARK</span>
+                                    <span className="relative z-10 tracking-wide">LOTUS</span>
 
                                     {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
                                     <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
 
                                     {/* Badge */}
                                     <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-emerald-300">
-                                        1
+                                        2
                                     </div>
 
                                 </div>
 
-                                {/* VIP Badge */}
-                                <div className="flex flex-col ">
 
-                                    <div className="bg-gradient-to-r from-gray-400 to-gray-600 text-white text-4xl font-bold py-4 px-6 rounded-2xl shadow-lg mb-6">
-                                        VIP
-                                    </div>
 
-                                    <div className="bg-gradient-to-r from-gray-400 to-gray-600 text-white text-4xl font-bold py-4 px-6 rounded-2xl shadow-lg mb-6">
-                                        VIP
-                                    </div>
+                                {/* No Discount */}
+                                <div className="relative bg-gradient-to-r from-red-800 to-red-600 text-white text-xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
 
-                                    {/* No Discount */}
-                                    <div className="relative bg-gradient-to-r from-red-800 to-red-600 text-white text-xl font-bold py-6 px-8 rounded-2xl mb-6 shadow-[0_20px_40px_rgba(0,0,0,0.25)]">
+                                    {/* Paper texture overlay */}
+                                    <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
 
-                                        {/* Paper texture overlay */}
-                                        <div className="absolute inset-0 bg-white/10 rounded-2xl mix-blend-overlay pointer-events-none"></div>
+                                    {/* Content */}
+                                    <span className="relative z-10 tracking-wide"> ❌ ไม่มีส่วนลด</span>
 
-                                        {/* Content */}
-                                        <span className="relative z-10 tracking-wide"> ❌ ไม่มีส่วนลด</span>
+                                    {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
+                                    <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
 
-                                        {/* Fold effect (เหมือนกระดาษงอเล็กน้อย) */}
-                                        <div className="absolute bottom-0 right-0 w-16 h-16 bg-white/20 rounded-tl-3xl"></div>
-
-                                        {/* Badge */}
-                                        <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-red-700">
-                                            0
-                                        </div>
-
+                                    {/* Badge */}
+                                    <div className="absolute bottom-3 right-2  text-white text-lg font-extrabold w-10 h-10 flex items-center justify-center rounded-full shadow-xl border border-red-700">
+                                        0
                                     </div>
 
                                 </div>
+
+
 
 
                             </div>

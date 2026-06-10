@@ -10,6 +10,7 @@ interface nextShift {
     amountCar: number,
     amountLandmark: number,
     amountNodiscount: number,
+    amountLotus: number,
     amountLost: number,
     totalPrice: number
 }
@@ -39,6 +40,7 @@ const Logout = forwardRef<HTMLDivElement, nextShift>((props, ref) => {
                 <p>cashier : {props.cashier}</p>
                 <p>จำนวนรถทั้งหมด : {props.amountCar} </p>
                 <p>จำนวนที่ใช้ ส่วนลด Landmark : {props.amountLandmark} </p>
+                <p>จำนวนที่ใช้ ส่วนลด Lotus : {props.amountLotus} </p>
                 <p>จำนวนที่ไม้ได้ไช้ส่วนลด : {props.amountNodiscount} </p>
                 <p>จำนวนใบเสร็จหาย : {props.amountLost} </p>
                 <p>ผลรวมรายได้ ทั้งหมด {props.amountCar} คัน  : {props.totalPrice} บาท</p>

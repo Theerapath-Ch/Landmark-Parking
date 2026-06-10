@@ -3,8 +3,8 @@ export const calculatePrice = (
   out_at: string,
   discount: string,
 ) => {
-  const [inH, inM, inS] = in_at.split(":").map(Number);
-  const [outH, outM, outS] = out_at.split(":").map(Number);
+  const [inH, inM] = in_at.split(":").map(Number);
+  const [outH, outM] = out_at.split(":").map(Number);
 
   // to minite
   const inMinutes = inH * 60 + inM;
@@ -29,11 +29,20 @@ export const calculatePrice = (
     const hours = Math.ceil(extraMinutes / 60);
     // 1 hr/10 bath
     return hours * 10;
+  
+  } else if (discount == "Lotus") {
+    const freeMinutes = 60;
+
+    if (diffMinutes <= freeMinutes) return 0;
+
+    const extraMinutes = diffMinutes - freeMinutes;
+    const hours = Math.ceil(extraMinutes / 60);
+    return hours * 40;
   }
 
   //----------------------- no discount
 
-  if (diffMinutes <= 20) return 0;
+  if (diffMinutes <= 25) return 0;
 
   if (diffMinutes <= 60) return 40;
 

@@ -53,6 +53,7 @@ interface nextShift {
     amountCar: number,
     amountLandmark: number,
     amountNodiscount: number,
+    amountLotus: number,
     amountLost: number,
     totalPrice: number
 }
@@ -90,6 +91,7 @@ export default function AdminPage() {
         amountCar: 0,
         amountLandmark: 0,
         amountNodiscount: 0,
+        amountLotus: 0,
         amountLost: 0,
         totalPrice: 0
     })
@@ -206,6 +208,7 @@ export default function AdminPage() {
             amountCar: 0,
             amountLandmark: 0,
             amountNodiscount: 0,
+            amountLotus: 0,
             amountLost: 0,
             sumPrice: 0,
         };
@@ -215,7 +218,10 @@ export default function AdminPage() {
                 summary.amountLandmark++;
             } else if (discount === "No-Discount") {
                 summary.amountNodiscount++;
+            } else if (discount === "Lotus") {
+                summary.amountLotus++;
             }
+
             if (remark === "lost") {
                 summary.amountLost++;
             }
@@ -243,6 +249,7 @@ export default function AdminPage() {
                 amountCar: summary.amountCar,
                 amountLandmark: summary.amountLandmark,
                 amountNodiscount: summary.amountNodiscount,
+                amountLotus: summary.amountLotus,
                 amountLost: summary.amountLost,
                 totalPrice: summary.sumPrice
             })
@@ -616,6 +623,7 @@ export default function AdminPage() {
                                     amountCar={prinDataShift.amountCar}
                                     amountLandmark={prinDataShift.amountLandmark}
                                     amountNodiscount={prinDataShift.amountNodiscount}
+                                    amountLotus={prinDataShift.amountLotus}
                                     amountLost={prinDataShift.amountLost}
                                     totalPrice={prinDataShift.totalPrice}
                                 />
