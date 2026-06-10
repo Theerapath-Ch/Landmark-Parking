@@ -37,6 +37,26 @@ export default function LoginPage() {
     }, [shift])
 
     const logIn = async (username: string, password: string,) => {
+        if (username == "001" && shift == "Admin") {
+            await Swal.fire({
+                icon: 'warning',
+                title: "ไม่สามารถใช้ username และ password นี้ได้",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                confirmButtonText: 'ตกลง',
+            })
+            return
+        }
+        if (username == "admin" && shift == "Day" || username == "admin" && shift == "Night") {
+            await Swal.fire({
+                icon: 'warning',
+                title: "ไม่สามารถใช้ username และ password นี้ได้",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                confirmButtonText: 'ตกลง',
+            })
+            return
+        }
         //console.log(shift);
         if (!username || !password) {
             setError("กรุณากรอก ID และ Password")
@@ -67,7 +87,7 @@ export default function LoginPage() {
                 })
                 const res = await checkTime.json()
                 if (res.message === "success") {
-                    console.log(res.userId);
+                    //console.log(res.userId);
 
                     setShift("")
                     router.push("/")
@@ -94,14 +114,23 @@ export default function LoginPage() {
 
             {/* Background */}
             <div className="absolute inset-0 bg-black">
-                <Image
-                    src={logo}
-                    loading="eager"
-                    alt="bg"
-                    className="w-full h-full object-cover blur-md scale-110"
+                {/* Purple Smoke */}
+                <div
+                    className="absolute top-0 left-0 w-[900px] h-[900px] rounded-full blur-[150px] opacity-30"
+                    style={{
+                        background: "#95c6ff",
+                    }}
                 />
+
+                {/* Blue Smoke */}
+                <div
+                    className="absolute bottom-0 right-0 w-[900px] h-[900px] rounded-full blur-[120px] opacity-20"
+                    style={{
+                        background: "#0b7bff52",
+                    }}
+                />
+
             </div>
-            <div className="absolute inset-0 bg-black/30" />
 
             {/* Card */}
             {!shift && (
@@ -170,7 +199,7 @@ export default function LoginPage() {
                                     {loading ? "กำลังเข้าสู่ระบบ..." : "Sign In"}
                                 </button>
 
-                                <button
+                                {/* <button
                                     onClick={() => router.push("/register")}
                                     className="w-full p-3 rounded-lg
                                 bg-gradient-to-r from-blue-500 to-blue-800
@@ -179,7 +208,7 @@ export default function LoginPage() {
                                 shadow-lg hover:shadow-blue-500/50"
                                 >
                                     Register
-                                </button> 
+                                </button>  */}
                             </div>
                         </div>
                     </div>
