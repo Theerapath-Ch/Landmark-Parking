@@ -13,16 +13,19 @@ export const KeyboardProvider = ({ children }: { children: React.ReactNode }) =>
     // console.log(actionRef);
     useEffect(() => {
         const handelKey = (e: KeyboardEvent) => {
-            console.log(e);
+            //console.log(e);
             if (e.repeat) return
             const key = e.key
+            if (e.key === "Enter") {
+                e.preventDefault();
+            }
             const action = actionRef.current
-            if(key in action){   //ตรวจสอบว่า key มีอยู่ใน action ไหม 
+            if (key in action) {   //ตรวจสอบว่า key มีอยู่ใน action ไหม 
                 action[key]?.()
             }
         }
-        window.addEventListener("keydown" , handelKey)
-        return () => window.removeEventListener("keydown" , handelKey)
+        window.addEventListener("keydown", handelKey)
+        return () => window.removeEventListener("keydown", handelKey)
     }, [])
 
     const setAction = (action: ActionMap) => {
@@ -30,7 +33,7 @@ export const KeyboardProvider = ({ children }: { children: React.ReactNode }) =>
     }
 
     return (
-        <KeyboardContext.Provider value={{setAction}} >
+        <KeyboardContext.Provider value={{ setAction }} >
             {children}
         </KeyboardContext.Provider>
     )
