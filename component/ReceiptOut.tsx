@@ -47,7 +47,7 @@ const Receipt_Out = forwardRef<HTMLDivElement, PrintDataOut>((props, ref) => {
             </div>
             <hr className="my-2" />
             <div>
-                <p className=" text-4xl">ราคา : {props.price} บาท </p>
+                <p className=" text-xl">ราคา : {props.price} บาท </p>
             </div>
         </div>
     );
