@@ -42,7 +42,7 @@ export const calculatePrice = (
 
   //----------------------- no discount
 
-  if (diffMinutes <= 25) return 0;
+  if (diffMinutes <= 15) return 0;
 
   if (diffMinutes <= 60) return 40;
 
