@@ -1,36 +1,210 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Parking POS
+
+Parking management desktop application for recording vehicle entry and exit, calculating parking fees, and managing parking transactions.
+
+The application is built with Next.js and packaged as a Windows desktop application using Electron. SQLite is used as the local database.
+
+## Features
+
+* Vehicle entry and exit recording
+* Automatic entry and exit timestamps
+* Parking duration calculation
+* Parking fee calculation
+* Parking transaction management
+* Receipt generation
+* Local SQLite database
+* Keyboard and numpad support
+* Windows desktop application
+
+## Tech Stack
+
+* Next.js
+* React
+* Tailwind CSS
+* Prisma
+* SQLite
+* Electron
+* JavaScript / TypeScript
+
+## Application Flow
+
+```text
+Vehicle Entry
+     |
+     v
+License Plate
+     |
+     v
+Record Entry Time
+     |
+     v
+Vehicle Parked
+     |
+     v
+Vehicle Exit
+     |
+     v
+Calculate Parking Duration
+     |
+     v
+Calculate Parking Fee
+     |
+     v
+Record Transaction
+     |
+     v
+Generate Receipt
+```
+
+## Project Structure
+
+```text
+parking-pos/
+│
+├── app/
+│   ├── api/
+│   ├── admin/
+│   └── ...
+│
+├── components/
+│
+├── prisma/
+│   ├── schema.prisma
+│   └── migrations/
+│
+├── public/
+│
+├── electron/
+│
+├── package.json
+└── README.md
+```
 
 ## Getting Started
 
-First, run the development server:
+### Requirements
+
+* Node.js
+* npm
+* Git
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Theerapath-Ch/Landmark-Parking.git
+cd parking-pos
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+### Database
+
+Generate Prisma Client:
+
+```bash
+npx prisma generate
+```
+
+Run database migration:
+
+```bash
+npx prisma migrate dev
+```
+
+### Development
+
+Start the Next.js development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build
 
-## Learn More
+Build the Next.js application:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Build the desktop application:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run electron:build
+```
 
-## Deploy on Vercel
+The generated Windows application will be available in the configured Electron Builder output directory.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Database
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application uses SQLite for local data storage.
+
+```text
+database/
+└── app.db
+```
+
+SQLite was selected because the application is intended to run locally without requiring a separate database server.
+
+Prisma is used to manage database access and migrations.
+
+## Parking Transaction
+
+A typical transaction contains:
+
+```text
+License Plate
+Entry Time
+Exit Time
+Parking Duration
+Parking Fee
+Transaction Status
+```
+
+Example:
+
+```text
+License Plate : ABC-1234
+Entry Time    : 08:30
+Exit Time     : 11:45
+Duration      : 3h 15m
+Parking Fee   : ฿40
+Status        : Completed
+```
+
+## Screenshots
+
+Screenshots will be added here.
+
+## Future Improvements
+
+* User authentication
+* Role-based access control
+* Revenue reports
+* Transaction search and filtering
+* Automatic database backup
+* Receipt printer integration
+* Barcode / QR Code support
+* Application auto-update
+
+## License
+
+This project is for personal and educational use.
+
+## Author
+
+Theerapath Chaicharoen
+
+Computer Engineering | Software Developer
