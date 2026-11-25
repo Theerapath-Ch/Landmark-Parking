@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { spawn } = require("child_process");
 const net = require("net");
+const { prepareDatabase } = require("./database");
 
 let nextServer;
 let appPort;
@@ -84,6 +85,10 @@ app.whenReady().then(async () => {
     ? path.join(__dirname, "..", ".next", "standalone", "server.js")
     : path.join(process.resourcesPath, "app", ".next", "standalone", "server.js");
 
+    const database = await prepareDatabase(app);
+    console.log("Database ready:", database.databasePath);
+
+
   nextServer = spawn(nodePath, [serverPath], {
     env: {
       ...process.env,
@@ -107,6 +112,8 @@ app.whenReady().then(async () => {
   nextServer.stderr.on("data", (data) => {
     console.error("[Next Error]", data.toString());
   });
+
+  
 
   try {
     await waitForPort(appPort);

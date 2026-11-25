@@ -187,7 +187,7 @@ export default function AdminPage() {
     }
 
     const printReceiptShift = async (idReceipt: string,) => {
-        console.log(idReceipt);
+        //console.log(idReceipt);
 
         const getDataReceipt = await fetch(`/api/logout`, {
             method: 'POST',
