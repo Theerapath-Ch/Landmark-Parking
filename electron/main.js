@@ -70,11 +70,11 @@ app.whenReady().then(async () => {
       "client",
       "query_engine-windows.dll.node"
     );
-    const dbPath = path.join(process.resourcesPath, "database", "app.db");
+    // const dbPath = path.join(process.resourcesPath, "database", "app.db");
 
     process.env.PRISMA_QUERY_ENGINE_LIBRARY = prismaPath;
     process.env.PRISMA_CLI_QUERY_ENGINE_TYPE = "library";
-    process.env.DATABASE_URL = `file:${dbPath}`;
+    // process.env.DATABASE_URL = `file:${dbPath}`;
   }
 
   appPort = await findFreePort(3000);
@@ -85,8 +85,9 @@ app.whenReady().then(async () => {
     ? path.join(__dirname, "..", ".next", "standalone", "server.js")
     : path.join(process.resourcesPath, "app", ".next", "standalone", "server.js");
 
-    const database = await prepareDatabase(app);
-    console.log("Database ready:", database.databasePath);
+    // const database = await prepareDatabase(app);
+    await prepareDatabase(app);
+    //console.log("Database ready:", database.databasePath);
 
 
   nextServer = spawn(nodePath, [serverPath], {
